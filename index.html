@@ -73,13 +73,17 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .c2{display:grid;grid-template-columns:1fr 1fr;gap:40px;width:100%}
 .str{position:absolute;bottom:0;left:0;right:0;height:4px}
 
-/* Cascading stairs */
-.stairs{display:flex;flex-direction:column;gap:10px;margin:24px 0 16px}
-.stair{padding:14px 22px;background:var(--bg2);border-left:3px solid var(--yellow);border-radius:0 10px 10px 0;font-size:17px;font-weight:600;line-height:1.4;color:var(--text)}
-.stair:nth-child(1){margin-left:0}
-.stair:nth-child(2){margin-left:48px}
-.stair:nth-child(3){margin-left:96px}
-@media(max-width:768px){.stair{font-size:14px;padding:10px 16px}.stair:nth-child(2){margin-left:24px}.stair:nth-child(3){margin-left:48px}}
+/* Steps ascending */
+.steps{display:flex;flex-direction:column;gap:6px;margin:20px 0 12px}
+.step{padding:10px 16px;background:var(--bg2);border-left:3px solid var(--yellow);border-radius:0 8px 8px 0;font-size:14px;line-height:1.3;color:var(--text)}
+.step .sn{font-weight:700;color:var(--yellow);font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
+.step .sd{color:var(--dim);font-size:13px}
+.step.s5{margin-left:160px}
+.step.s4{margin-left:120px}
+.step.s3{margin-left:80px}
+.step.s2{margin-left:40px}
+.step.s1{margin-left:0}
+@media(max-width:768px){.step{font-size:12px;padding:8px 12px}.step.s5{margin-left:80px}.step.s4{margin-left:60px}.step.s3{margin-left:40px}.step.s2{margin-left:20px}.step.s1{margin-left:0}}
 /* Timeline bar */
 .tl{position:fixed;top:0;left:0;right:0;height:44px;background:rgba(27,27,27,.95);z-index:998;display:flex;align-items:center;justify-content:center;gap:6px;border-bottom:1px solid rgba(255,255,255,.04)}
 .tl-step{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.1);transition:all .3s}
@@ -535,55 +539,59 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <!-- 23. Сопровождение -->
 <div class="s" data-a="yellow">
   <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Клиентский</span><span class="nm">Богачёва</span></div>
-  <div class="t3" style="font-size:19px;color:var(--dim);margin-bottom:24px;max-width:900px">К 2030 студент приходит в Zerocoder не за курсом — за проектом, ИИ-инструментом и нетворкингом. Курс — начало отношений, не конец. Вопрос только в том, <span class="c-yellow" style="font-weight:700">один ли ты в важной точке — или рядом человек?</span></div>
-  <div class="stairs">
-    <div class="stair">ФОТ пропорционален росту участников премиальных тарифов</div>
-    <div class="stair">Доходимость — повышается х2 за счёт ИИ-решений и дизайна внимания</div>
-    <div class="stair">Подписка на ИИ-агента увеличивает LTV кратно</div>
+  <div class="t3" style="font-size:19px;color:var(--dim);margin-bottom:20px;max-width:900px">К 2030 студент приходит в Zerocoder не за курсом — за проектом, ИИ-инструментом и нетворкингом. Курс — начало отношений, не конец. Вопрос только в том, <span class="c-yellow" style="font-weight:700">один ли ты в важной точке — или рядом человек?</span></div>
+  <div class="steps">
+    <div class="step s5"><div class="sn">Luxury</div><div class="sd">+ Команда 3–5 чел + топ-менеджмент · Корпоративная ИИ-система</div></div>
+    <div class="step s4"><div class="sn">VIP+</div><div class="sd">+ Команда: ИИ-инженер, карьерный консультант · Многоагентная инфраструктура</div></div>
+    <div class="step s3"><div class="sn">VIP</div><div class="sd">ИИ-наставник + ИИ-агент + Архитектор траектории (человек) · Гарантия результата</div></div>
+    <div class="step s2"><div class="sn">Бизнес</div><div class="sd">ИИ-наставник + ИИ-агент, который растёт вместе с учебой</div></div>
+    <div class="step s1"><div class="sn">Базовый</div><div class="sd">ИИ-агент</div></div>
   </div>
-  <div class="t2" style="font-size:24px;margin-bottom:12px">Пять уровней сопровождения</div>
-  <table class="tb">
-    <thead><tr><th></th><th>Базовый</th><th>Бизнес</th><th>VIP</th><th>VIP+</th><th>Luxury</th></tr></thead>
-    <tbody>
-      <tr><td>Сопровождение</td><td>Только ИИ</td><td>Продвинутый ИИ</td><td>+ Архитектор</td><td>+ Команда 3–5</td><td>+ Топ-менеджмент</td></tr>
-      <tr><td>Опыт</td><td>Программа + ИИ</td><td>Агент растёт</td><td>Персональный + гарантия</td><td>Многоагентная</td><td>Корпоративная</td></tr>
-      <tr><td>Гарантия</td><td>—</td><td>—</td><td>Возврат</td><td>KPI в договоре</td><td>Бизнес-KPI</td></tr>
-    </tbody>
-  </table>
-  <div style="margin-top:10px;font-size:15px;color:var(--yellow)">Живой человек — в верхних трёх тарифах. ФОТ растёт с VIP, не с базой.</div>
 </div>
 
-<!-- 24. Community -->
+<!-- 24. Комьюнити -->
 <div class="s" data-a="yellow">
   <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Клиентский</span><span class="nm">Богачёва</span></div>
-  <div class="c2">
-    <div>
-      <div class="t2" style="font-size:22px;margin-bottom:14px">Единая платформа с ИИ-фасилитатором</div>
-      <div style="font-size:17px;line-height:1.5;margin-bottom:16px;color:var(--text)">Вместо 10+ разрозненных чатов — единая платформа с ИИ-фасилитатором</div>
+  <div style="display:flex;flex-direction:column;align-items:center;width:100%">
+    <svg viewBox="0 0 420 420" width="340" height="340" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 16px">
+      <!-- 1. ИИ-фасилитатор (outermost) -->
+      <circle cx="210" cy="210" r="190" fill="none" stroke="rgba(238,255,0,0.15)" stroke-width="2"/>
+      <!-- 2. Канал -->
+      <circle cx="210" cy="210" r="140" fill="none" stroke="rgba(238,255,0,0.25)" stroke-width="2"/>
+      <!-- 3. Ниша -->
+      <circle cx="210" cy="210" r="100" fill="none" stroke="rgba(238,255,0,0.40)" stroke-width="2"/>
+      <!-- 4. Поток -->
+      <circle cx="210" cy="210" r="60" fill="none" stroke="rgba(238,255,0,0.58)" stroke-width="2"/>
+      <!-- 5. Свои (innermost) -->
+      <circle cx="210" cy="210" r="28" fill="rgba(238,255,0,0.12)" stroke="rgba(238,255,0,0.7)" stroke-width="2"/>
+
+      <!-- Labels -->
+      <text x="210" y="16" text-anchor="middle" fill="rgba(238,255,0,0.85)" font-size="12" font-weight="700" font-family="Manrope,sans-serif">ИИ-фасилитатор</text>
+      <!-- Клуб выпускников и Нейроклуб — between circle 1 and 2 -->
+      <text x="380" y="195" text-anchor="middle" fill="rgba(238,255,0,0.65)" font-size="10" font-weight="600" font-family="Manrope,sans-serif">Клуб</text>
+      <text x="380" y="210" text-anchor="middle" fill="rgba(238,255,0,0.65)" font-size="10" font-weight="600" font-family="Manrope,sans-serif">выпускников</text>
+      <text x="380" y="232" text-anchor="middle" fill="rgba(238,255,0,0.65)" font-size="10" font-weight="600" font-family="Manrope,sans-serif">Нейроклуб</text>
+      <!-- Канал label -->
+      <text x="210" y="66" text-anchor="middle" fill="rgba(238,255,0,0.75)" font-size="11" font-weight="600" font-family="Manrope,sans-serif">Канал</text>
+      <!-- Ниша label -->
+      <text x="210" y="106" text-anchor="middle" fill="rgba(238,255,0,0.75)" font-size="11" font-weight="600" font-family="Manrope,sans-serif">Ниша</text>
+      <!-- Поток label -->
+      <text x="210" y="146" text-anchor="middle" fill="rgba(238,255,0,0.75)" font-size="11" font-weight="600" font-family="Manrope,sans-serif">Поток</text>
+      <!-- Свои label -->
+      <text x="210" y="215" text-anchor="middle" fill="rgba(238,255,0,0.9)" font-size="13" font-weight="800" font-family="Manrope,sans-serif">Свои</text>
+    </svg>
+    <div style="text-align:center;max-width:700px">
+      <div style="font-size:17px;line-height:1.5;color:var(--text);margin-bottom:12px">Единая платформа с ИИ-фасилитатором вместо 10+ разрозненных чатов</div>
       <div style="font-size:16px;line-height:1.5;color:var(--dim)">ИИ-фасилитатор знает каждого участника и подбирает контакты по скрытым параметрам совместимости: «стиль общения», «темп жизни» и т.д.</div>
-      <div style="margin-top:24px">
-        <svg viewBox="0 0 300 300" width="280" height="280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto">
-          <circle cx="150" cy="150" r="140" fill="none" stroke="rgba(238,255,0,0.12)" stroke-width="1.5"/>
-          <circle cx="150" cy="150" r="110" fill="none" stroke="rgba(238,255,0,0.22)" stroke-width="1.5"/>
-          <circle cx="150" cy="150" r="80" fill="none" stroke="rgba(238,255,0,0.38)" stroke-width="1.5"/>
-          <circle cx="150" cy="150" r="50" fill="none" stroke="rgba(238,255,0,0.58)" stroke-width="1.5"/>
-          <circle cx="150" cy="150" r="20" fill="rgba(238,255,0,0.75)" stroke="none"/>
-        </svg>
-      </div>
-    </div>
-    <div style="display:flex;flex-direction:column;justify-content:center">
-      <div class="t2 c-yellow ctr" style="font-size:24px;line-height:1.5;margin-bottom:20px">К 2030 студент получает диплом, навыки, ИИ-инструменты и сеть контактов!</div>
-      <div style="font-size:18px;color:var(--yellow);text-align:center;font-weight:600;line-height:1.5">Это новая экосистема образования.<br>Сопровождение — её сердце 💗</div>
     </div>
   </div>
 </div>
 
-<!-- 25. Итог -->
+<!-- 25. Финал -->
 <div class="s" data-a="yellow" style="align-items:center">
   <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Клиентский</span><span class="nm">Богачёва</span></div>
-  <div class="q c-yellow ctr" style="border-color:var(--yellow);font-size:26px;text-align:center;border:none;padding:0;color:var(--yellow)">
-    К 2030 студент уходит не с дипломом.<br>С профессией, ИИ-инструментом, сетью контактов и пожизненной связью.<br><strong>Это новая форма образования. Сопровождение — её сердце.</strong>
-  </div>
+  <div class="t2 c-yellow ctr" style="font-size:28px;line-height:1.4;margin-bottom:20px">К 2030 студент получает диплом, навыки, ИИ-инструменты и сеть контактов!</div>
+  <div style="font-size:20px;color:var(--yellow);text-align:center;font-weight:600;line-height:1.5">Это новая эко-система образования.<br>Сопровождение — её сердце 💗</div>
   <div class="str b-yellow"></div>
 </div>
 
