@@ -72,6 +72,15 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .tb td:first-child{color:var(--text);font-weight:600}
 .c2{display:grid;grid-template-columns:1fr 1fr;gap:40px;width:100%}
 .str{position:absolute;bottom:0;left:0;right:0;height:4px}
+/* Timeline bar */
+.tl{position:fixed;top:0;left:0;right:0;height:44px;background:rgba(27,27,27,.95);z-index:998;display:flex;align-items:center;justify-content:center;gap:6px;border-bottom:1px solid rgba(255,255,255,.04)}
+.tl-step{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.1);transition:all .3s}
+.tl-step.active{background:var(--tl-color,#9f7bf6);box-shadow:0 0 8px var(--tl-color,#9f7bf6)}
+.tl-step.done{background:rgba(255,255,255,.3)}
+.tl-label{position:fixed;top:12px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;color:var(--dim);letter-spacing:1px;text-transform:uppercase;z-index:999;opacity:0;transition:opacity .3s}
+.tl-label.show{opacity:.6}
+@media(max-width:768px){.tl{height:32px;gap:3px}.tl-step{width:6px;height:6px}.tl-label{font-size:8px;top:8px}}
+
 
 .c-purple{color:var(--purple)}.c-green{color:var(--green)}.c-green-l{color:var(--green-l)}
 .c-yellow{color:var(--yellow)}.c-coral{color:var(--coral)}.c-lavender{color:var(--lavender)}.c-cyan{color:var(--cyan)}
@@ -130,6 +139,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 </style>
 </head>
 <body>
+<div class="tl" id="tl"></div>
+<div class="tl-label" id="tlLabel"></div>
 <div class="prog" id="prog"></div>
 <div class="cnt" id="cnt">1</div>
 <div class="nav"><button onclick="go(-1)">←</button><button onclick="go(1)">→</button></div>
@@ -307,12 +318,13 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <!-- 15. Где мы сейчас -->
 <div class="s" data-a="yellow">
   <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Продюсерский центр</span><span class="nm">Копылова</span></div>
-  <div class="mr" style="margin-bottom:28px">
+  <div class="t2 ctr" style="font-size:28px;margin-bottom:24px">Где мы сейчас</div>
+  <div class="mr" style="margin-bottom:20px">
     <div class="stat-box"><div class="sb-line b-yellow"></div><div class="sv c-yellow">№1</div><div class="sl">в ИИ-образовании РФ</div></div>
     <div class="stat-box"><div class="sb-line b-yellow"></div><div class="sv c-yellow">737 млн ₽</div><div class="sl">выручка 2025, +140% г/г</div></div>
     <div class="stat-box"><div class="sb-line b-yellow"></div><div class="sv c-yellow">15–20</div><div class="sl">активностей в месяц</div></div>
   </div>
-  <div class="sub ctr" style="margin-top:8px">4 продюсера — ограничены рабочим временем исполнителей (копирайтеры, презентологи, модераторы, ассистенты)</div>
+  <div class="sub ctr">4 продюсера — ограничены рабочим временем исполнителей (копирайтеры, презентологи, модераторы, ассистенты)</div>
 </div>
 
 <!-- 16. Эволюция + Штат -->
@@ -779,7 +791,7 @@ function upd(){
   P.style.width=(dh>0?(st/dh)*100:0)+'%';
   const h=S[0]?S[0].offsetHeight:1;
   ci=Math.min(Math.max(0,Math.floor((st+window.innerHeight/2)/h)),S.length-1);
-  C.textContent=(ci+1)+' / '+S.length
+  C.textContent=(ci+1)+' / '+S.length;updTl(ci)
 }
 function go(d){const n=Math.max(0,Math.min(ci+d,S.length-1));S[n].scrollIntoView({behavior:'smooth'})}
 function fs(){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
@@ -796,6 +808,35 @@ if('IntersectionObserver' in window){
   S.forEach(s=>io.observe(s));
   // Fallback: if observer hasn't fired after 2s, show all slides
   setTimeout(()=>{S.forEach(s=>{s.style.opacity='1';s.style.transform='none'})},2000);
+}
+
+// Timeline bar
+const TL_BLOCKS=['Cover','Manifest','Technical','Marketing','Sales','Producer','CPO','Client','Career','Finance','Kids','Academic','Finale'];
+const TL_COLORS=['#9f7bf6','#5b2dcd','#a789ec','#00c8ff','#45e083','#eeff00','#f4846b','#eeff00','#29dc6d','#f4846b','#29dc6d','#9f7bf6','#5b2dcd'];
+const tlEl=document.getElementById('tl'),tlLabel=document.getElementById('tlLabel');
+if(tlEl){TL_BLOCKS.forEach(function(_,i){var d=document.createElement('div');d.className='tl-step';d.dataset.i=i;tlEl.appendChild(d)})}
+function updTl(idx){
+  if(!tlEl)return;
+  var steps=tlEl.querySelectorAll('.tl-step');
+  var bi=0;
+  if(idx<2)bi=idx;
+  else if(idx<7)bi=2;
+  else if(idx<10)bi=3;
+  else if(idx<13)bi=4;
+  else if(idx<20)bi=5;
+  else if(idx<24)bi=6;
+  else if(idx<28)bi=7;
+  else if(idx<31)bi=8;
+  else if(idx<34)bi=9;
+  else if(idx<38)bi=10;
+  else if(idx<40)bi=11;
+  else bi=12;
+  for(var i=0;i<steps.length;i++){
+    steps[i].className='tl-step';
+    if(i<bi)steps[i].classList.add('done');
+    if(i===bi){steps[i].classList.add('active');steps[i].style.setProperty('--tl-color',TL_COLORS[i])}
+  }
+  if(tlLabel){tlLabel.textContent=TL_BLOCKS[bi]||'';tlLabel.classList.add('show')}
 }
 (function(){
   const cv=document.getElementById('coverCanvas');if(!cv)return;
