@@ -84,6 +84,53 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .step.s2{margin-left:40px}
 .step.s1{margin-left:0}
 @media(max-width:768px){.step{font-size:12px;padding:8px 12px}.step.s5{margin-left:80px}.step.s4{margin-left:60px}.step.s3{margin-left:40px}.step.s2{margin-left:20px}.step.s1{margin-left:0}}
+
+/* Vertical age timeline */
+.age-tl{display:flex;flex-direction:column;gap:12px;margin:16px 0;width:100%}
+.age-row{display:flex;align-items:flex-start;gap:16px}
+.age-num{font-size:32px;font-weight:800;min-width:70px;text-align:right;line-height:1.1}
+.age-txt{font-size:14px;line-height:1.4;padding-top:4px}
+.age-txt .at-title{font-weight:600;color:var(--text)}
+.age-txt .at-sub{color:var(--dim);font-size:13px}
+
+/* Contrast columns (old vs new) */
+.con{display:grid;grid-template-columns:1fr 40px 1fr;gap:0;width:100%;align-items:start}
+.con-old{background:rgba(255,80,80,.06);border:1px solid rgba(255,80,80,.15);border-radius:12px;padding:20px 18px}
+.con-vs{display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:200;color:var(--dim);padding-top:20px}
+.con-new{background:rgba(41,220,109,.06);border:1px solid rgba(41,220,109,.2);border-radius:12px;padding:20px 18px}
+.con h3{font-size:16px;font-weight:700;margin-bottom:10px}
+.con-old h3{color:#f4846b}
+.con-new h3{color:var(--green)}
+.con ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.con li{font-size:14px;line-height:1.4;padding-left:20px;position:relative}
+.con-old li::before{content:'✕';position:absolute;left:0;color:#f4846b;font-weight:700}
+.con-new li::before{content:'✓';position:absolute;left:0;color:var(--green);font-weight:700}
+
+/* Transition slide */
+.trans-text{font-size:28px;font-weight:300;line-height:1.5;max-width:800px;text-align:center;color:var(--dim)}
+.trans-text strong{color:var(--green);font-weight:700}
+
+/* Pillar cards */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%}
+.pillar{background:var(--bg2);border-radius:12px;padding:18px;border-top:3px solid var(--green)}
+.pillar .p-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:6px}
+.pillar .p-title{font-size:16px;font-weight:700;margin-bottom:8px}
+.pillar ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px}
+.pillar li{font-size:13px;line-height:1.35;color:var(--dim);padding-left:16px;position:relative}
+.pillar li::before{content:'';position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+/* Access circles */
+.access-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:16px 0}
+.access-item{background:var(--bg2);border:1px solid rgba(41,220,109,.2);border-radius:50%;width:100px;height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:12px;font-weight:600;line-height:1.2;color:var(--text)}
+.access-item .ai-icon{font-size:24px;margin-bottom:4px}
+
+@media(max-width:768px){
+  .pillars{grid-template-columns:1fr}
+  .con{grid-template-columns:1fr;gap:0}
+  .con-vs{padding:8px 0;font-size:22px}
+  .age-num{font-size:24px;min-width:50px}
+  .access-item{width:80px;height:80px;font-size:10px}
+}
 /* Timeline bar */
 .tl{position:fixed;top:0;left:0;right:0;height:44px;background:rgba(27,27,27,.95);z-index:998;display:flex;align-items:center;justify-content:center;gap:6px;border-bottom:1px solid rgba(255,255,255,.04)}
 .tl-step{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.1);transition:all .3s}
@@ -678,134 +725,367 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
 <!-- ══════════ БЛОК 9: ДЕТИ ══════════ -->
 
-<!-- 32. Приветственный -->
+<!-- 32. Splash — Медведева -->
 <div class="s splash" data-a="green">
   <div class="splash-dept c-green glow-green">Детское направление</div>
   <div class="splash-line b-green"></div>
   <div class="splash-sub">Зерокодер 2030</div>
-  <div class="splash-speaker">Лилия Медведева + Вита Захаренко</div>
+  <div class="splash-speaker">Лилия Медведева</div>
   <div class="splash-vision">Космодром для будущих миллионеров в IT. Первая русскоязычная глобальная экосистема для детей 6–18 лет</div>
 </div>
 
-<!-- 33. Масштаб + Онлайн -->
+<!-- 33. Платформа — живой организм -->
 <div class="s" data-a="green">
   <div class="sp"><div class="dot b-green"></div><span class="c-green">Дети</span><span class="nm">Медведева</span></div>
-  <div class="mr" style="margin-bottom:20px">
+  <div class="t2" style="font-size:24px;margin-bottom:16px">Онлайн-экосистема на AI</div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:18px;margin-bottom:8px">🤖 Для каждого ребёнка</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>AI-тьютор с первого дня: видит, как щёлкает задачи, где застревает, что обожает</li>
+        <li>Предлагает трек «Нейросети для иллюстраторов» или подтягивает слабые места в игровой форме</li>
+      </ul>
+      <div class="t2" style="font-size:18px;margin:12px 0 8px">🔀 Адаптивный путь</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>Не общая программа — трек под скорость и интересы</li>
+        <li>Одарённый 10-летний летит в ML-группу к 15-летним</li>
+        <li>Новичок начинает с визуального программирования: «я создаю, а не повторяю»</li>
+      </ul>
+    </div>
+    <div>
+      <div class="t2" style="font-size:18px;margin-bottom:8px">⚡ Автоматизация + люди</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>AI проверяет 80% кода, хвалит, даёт следующий уровень</li>
+        <li>Преподаватели — на живых занятиях: хакатоны, разборы проектов, воркшопы</li>
+        <li>Никогда один: в сложных вопросах рядом <span class="c-green" style="font-weight:700">AI + человек</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="mr" style="margin-top:16px">
     <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">120 000</div><div class="sl">учеников к 2030</div><div class="si">40% — дети экспатов</div></div>
-    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">12</div><div class="sl">школ в 8 странах</div><div class="si">Турция, ОАЭ, Кипр и др.</div></div>
-    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">300</div><div class="sl">студентов в колледже</div><div class="si">трудоустройство 90%+</div></div>
+    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">3 языка</div><div class="sl">русский + English + العربية</div></div>
+    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">80%</div><div class="sl">кода проверяет AI</div></div>
   </div>
+</div>
+
+<!-- 34. Русский → мир -->
+<div class="s" data-a="green">
+  <div class="sp"><div class="dot b-green"></div><span class="c-green">Дети</span><span class="nm">Медведева</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:16px">Русскоязычный рынок = неограниченный потенциал</div>
   <div class="c2">
     <div>
-      <div class="t2" style="font-size:22px;margin-bottom:10px">Платформа — «живой организм»</div>
+      <div class="t2" style="font-size:18px;margin-bottom:8px;color:#f4846b">Сейчас</div>
       <ul class="bl bl-green" style="font-size:14px">
-        <li>AI-тьютор с первого дня: смотрит, как ребёнок щёлкает задачи, предлагает трек «Нейросети для иллюстраторов» или подтягивает слабые места в игровой форме</li>
-        <li>Никакой общей программы — <span class="c-green" style="font-weight:700">адаптивный путь</span> под скорость и интересы</li>
-        <li>Одарённый 10-летний кодер летит в ML-группу к 15-летним. Новичок начинает с визуального программирования</li>
-        <li>AI проверяет 80% кода, преподаватели — хакатоны и разборы проектов</li>
+        <li>Рынок русскоязычных экспатов огромен — и <span class="c-green" style="font-weight:700">никем не закрыт</span></li>
+        <li>Семьи в Дубае, Кипре, Турции, Сербии, Германии, США ищут качество на русском</li>
+        <li>Конкуренция: <span style="color:#f4846b;font-weight:700">0</span></li>
       </ul>
     </div>
     <div>
-      <div class="t2" style="font-size:22px;margin-bottom:10px">Русский → мир</div>
+      <div class="t2" style="font-size:18px;margin-bottom:8px">К 2030</div>
       <ul class="bl bl-green" style="font-size:14px">
-        <li>Русскоязычные экспаты в Дубае, на Кипре, в Турции, Сербии, Германии, США — <span class="c-green" style="font-weight:700">рынок никем не закрыт</span></li>
-        <li>К 2030: полноценные программы на английском и арабском</li>
-        <li>В Дубае наши школы хотят все</li>
+        <li>Полноценные программы на английском и арабском</li>
         <li>10 языков в интерфейсе платформы</li>
+        <li>В Дубае наши школы хотят все</li>
+        <li><span class="c-green" style="font-weight:700">Региональный лидер в 3 языковых зонах</span></li>
       </ul>
     </div>
   </div>
 </div>
 
-<!-- 34. Офлайн-хабы + Колледж -->
+<!-- 35. 12 школ в 8 странах -->
 <div class="s" data-a="green">
   <div class="sp"><div class="dot b-green"></div><span class="c-green">Дети</span><span class="nm">Медведева</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:16px">Zerocoder Hubs — места, куда бегут дети</div>
   <div class="c2">
     <div>
-      <div class="t2" style="font-size:22px;margin-bottom:10px">12 школ в 8 странах</div>
-      <ul class="bl bl-green" style="font-size:14px">
-        <li><strong>Стамбул</strong> — панорамные окна, пахнет печеньем и паяльником</li>
-        <li><strong>Бали</strong> — школа под открытым небом: утром йога, днём разработка игр, вечером IT-кино с разбором</li>
-        <li><strong>Дубай</strong> — 3 этажа: робототехника, нейросети, лаунж для родителей и кофе-пойнт</li>
-        <li>Лагеря: «Стартап за 10 дней», «Нейросети в искусстве» — дети из Германии, Турции, Сербии пишут код вместе и дружат годами</li>
-      </ul>
+      <div class="cards cards-green" style="grid-template-columns:1fr;gap:10px">
+        <div class="cd" style="padding:14px 16px"><div class="cd-t c-green">Стамбул</div><div class="cd-b" style="font-size:13px">Панорамные окна, пахнет печеньем и паяльником</div></div>
+        <div class="cd" style="padding:14px 16px"><div class="cd-t c-green">Бали</div><div class="cd-b" style="font-size:13px">Школа под открытым небом: утром йога, днём разработка игр, вечером IT-кино с разбором</div></div>
+        <div class="cd" style="padding:14px 16px"><div class="cd-t c-green">Дубай</div><div class="cd-b" style="font-size:13px">3 этажа: робототехника, нейросети, лаунж для родителей и кофе-пойнт</div></div>
+      </div>
     </div>
     <div>
-      <div class="t2" style="font-size:22px;margin-bottom:10px">Колледж будущего (СПО)</div>
       <ul class="bl bl-green" style="font-size:14px">
-        <li><span class="c-green" style="font-weight:700">Первое частное СПО по IT</span> для 9–11 классов — революция в образовании</li>
-        <li>Профессии из «Атласа будущего»: архитектор нейросетей, робототехник, VR/AR, промпт-инженер</li>
-        <li>Диплом гос. образца, но учимся не так: никаких пар по философии — <span class="c-green" style="font-weight:700">только проекты</span></li>
-        <li>Курсовые = готовые коммерческие проекты. Лучшие студенты → джуны без стажировки</li>
-        <li>300 студентов, трудоустройство <span class="c-green" style="font-weight:700">94%</span>, доход выпускников от <span class="c-green" style="font-weight:700">200 000 ₽</span></li>
+        <li><strong>12 школ</strong> в 8 странах: Турция, ОАЭ, Кипр, Таиланд, Сербия, Германия, Грузия, Армения</li>
+        <li>Лагеря-миссии: «Стартап за 10 дней», «Нейросети в искусстве»</li>
+        <li>Дети из Германии, Турции, Сербии пишут код вместе, дружат годами</li>
+        <li>Школа полного дня: скорочтение + математика + программирование</li>
       </ul>
     </div>
   </div>
 </div>
 
-<!-- 35. Клиентский + ЗОЖ -->
+<!-- 36. Колледж будущего -->
 <div class="s" data-a="green">
   <div class="sp"><div class="dot b-green"></div><span class="c-green">Дети</span><span class="nm">Медведева</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:16px">Колледж будущего — первое частное СПО по IT</div>
   <div class="c2">
     <div>
-      <div class="t2" style="font-size:22px;margin-bottom:10px">Клиентский отдел будущего</div>
+      <div class="t2" style="font-size:18px;margin-bottom:8px">Революция</div>
       <ul class="bl bl-green" style="font-size:14px">
-        <li>AI-агенты решают <span class="c-green" style="font-weight:700">85% вопросов</span> за 30 сек. Люди не должны делать то, что может робот</li>
-        <li>Кураторы — <span class="c-green" style="font-weight:700">клиентское счастье</span>: «Дима, мы скучали! Какой проект тебя зажжёт?» — не скрипты</li>
-        <li>AI-аналитика отслеживает настроение ученика. За 3 урока до потери интереса — куратор меняет траекторию</li>
-        <li>Возвраты <span class="c-green" style="font-weight:700">&lt;5%</span>. Рейтинг <span class="c-green" style="font-weight:700">4.8</span>. NPS 75+ (лучшие школы — 50–60)</li>
-        <li>KPI — не тикеты, а <span class="c-green" style="font-weight:700">индекс счастья</span> детей и родителей</li>
+        <li>Сейчас: после 9 класса → унылый ПТУ или захудалый колледж</li>
+        <li>Мы даём профессии будущего, которые <span class="c-green" style="font-weight:700">реально нужны рынку</span></li>
+      </ul>
+      <div class="t2" style="font-size:18px;margin:14px 0 8px">5 профессий из «Атласа будущего»</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>Архитектор нейросетей</li>
+        <li>Инженер робототехнических систем</li>
+        <li>Разработчик VR/AR миров</li>
+        <li>Аналитик данных</li>
+        <li>Промпт-инженер</li>
       </ul>
     </div>
     <div>
-      <div class="t2" style="font-size:22px;margin-bottom:10px">ЗОЖ в ДНК компании</div>
+      <div class="t2" style="font-size:18px;margin-bottom:8px">Как учимся</div>
       <ul class="bl bl-green" style="font-size:14px">
-        <li><strong>Ученики:</strong> зарядка с компьютерным зрением каждые 45 мин. Челлендж «100 дней кода и спорта» — скидка за активность</li>
-        <li>В хабах: мини-скалодром, скейт-парк, турниры по футболу между командами</li>
-        <li><strong>Сотрудники:</strong> «Zerocoder Move» — баллы за шаги → выходной, бассейн, массаж</li>
-        <li>Болеют на <span class="c-green" style="font-weight:700">30% реже</span>. Челлендж проходят <span class="c-green" style="font-weight:700">70%</span> детей</li>
+        <li>Диплом гос. образца</li>
+        <li>Никаких пар по философии — <span class="c-green" style="font-weight:700">только реальные проекты</span></li>
+        <li>Курсовые = готовые коммерческие проекты</li>
+        <li>Лучшие студенты → джуны без стажировки</li>
       </ul>
-      <div style="margin-top:10px;font-size:13px;color:var(--dim);font-style:italic">Дети жалуются не на сложность Python, а что «перемены слишком короткие, не успеваю поиграть в кибер-зарядку»</div>
+      <div class="mr" style="margin-top:14px">
+        <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">300</div><div class="sl">студентов к 2030</div></div>
+        <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">94%</div><div class="sl">трудоустройство</div></div>
+        <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">200К ₽</div><div class="sl">доход выпускников</div></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- 36. Вита: «Детство без ограничений» -->
+<!-- 37. Клиентский отдел будущего -->
 <div class="s" data-a="green">
-  <div class="sp"><div class="dot b-green"></div><span class="c-green">Дети</span><span class="nm">Захаренко</span></div>
-  <div class="t2 c-green ctr" style="font-size:28px;margin-bottom:20px">«Мы отменили правило "подрастёшь — тогда сможешь"»</div>
-  <div class="mr" style="margin-bottom:20px">
-    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green" style="font-size:32px">12 лет</div><div class="sl">запускают стартапы</div></div>
-    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green" style="font-size:32px">14 лет</div><div class="sl">выступают на конференциях</div></div>
-    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green" style="font-size:32px">16 лет</div><div class="sl">создают продукты для тысяч</div></div>
-  </div>
-  <div class="c2">
-    <div>
-      <div class="t2" style="font-size:20px;margin-bottom:8px">Карта возможностей</div>
-      <ul class="bl bl-green" style="font-size:14px">
-        <li>AI-наставник 24/7 — знает интересы, помогает ставить цели</li>
-        <li>Международные проектные команды: Казахстан + Япония + Бразилия</li>
-        <li>Стартап-студия: наставник, команда, грант на развитие</li>
-        <li>Исследовательские лаборатории: AI, робототехника, космос, медицина, климат</li>
+  <div class="sp"><div class="dot b-green"></div><span class="c-green">Дети</span><span class="nm">Медведева</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:16px">Поддержка, которая работает на счастье</div>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="p-num">1 · AI решает рутину</div>
+      <div class="p-title">Мгновенно</div>
+      <ul>
+        <li>Агенты отвечают за 30 сек на 85% вопросов</li>
+        <li>«Где пароль?», «Как поменять тариф?» — моментально</li>
+        <li>Люди не должны делать то, что может робот</li>
       </ul>
     </div>
-    <div>
-      <div class="t2" style="font-size:20px;margin-bottom:8px">События и партнёры</div>
-      <ul class="bl bl-green" style="font-size:14px">
-        <li>Международный фестиваль технологий, Глобальный AI-хакатон, TED Kids</li>
-        <li>Лагеря-миссии: «Построить город будущего», «Создать стартап за 14 дней»</li>
-        <li>Партнёры: <span class="c-green" style="font-weight:700">OpenAI, Google, SpaceX, NASA, MIT, Stanford</span></li>
+    <div class="pillar">
+      <div class="p-num">2 · Кураторы — творцы</div>
+      <div class="p-title">Не скрипты, а счастье</div>
+      <ul>
+        <li>«Дима, мы скучали! Какой проект тебя зажжёт?»</li>
+        <li>Видят прогресс через дашборд, подключаются заранее</li>
+        <li>KPI — индекс счастья детей и родителей</li>
       </ul>
-      <div style="margin-top:12px;font-size:15px;color:var(--green);font-weight:600;line-height:1.5">Родители приходят не за знаниями. За возможностями, окружением и будущим, которое ребёнок строит уже сегодня</div>
+    </div>
+    <div class="pillar">
+      <div class="p-num">3 · Проактивная аналитика</div>
+      <div class="p-title">Предупреждаем, не лечим</div>
+      <ul>
+        <li>AI отслеживает настроение ученика по косвенным признакам</li>
+        <li>За 3 урока до потери интереса — куратор меняет траекторию</li>
+        <li>Возвраты &lt;5% · Рейтинг 4.8 · NPS 75+</li>
+      </ul>
     </div>
   </div>
 </div>
 
-<!-- 37. Итог -->
+<!-- 38. ЗОЖ в ДНК -->
+<div class="s" data-a="green">
+  <div class="sp"><div class="dot b-green"></div><span class="c-green">Дети</span><span class="nm">Медведева</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:16px">Здоровье — конкурентное преимущество</div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:18px;margin-bottom:8px">🏋 Для учеников</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>Каждые 45 мин урока: зарядка с компьютерным зрением</li>
+        <li>Челлендж «100 дней кода и спорта» — скидка за активность</li>
+        <li>В офлайн-хабах: мини-скалодром, скейт-парк, турниры по футболу</li>
+      </ul>
+    </div>
+    <div>
+      <div class="t2" style="font-size:18px;margin-bottom:8px">💼 Для сотрудников</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>«Zerocoder Move» — баллы за шаги → выходной, бассейн, массаж</li>
+        <li>Каждый новый сотрудник получает трекер активности</li>
+        <li>Болеют на <span class="c-green" style="font-weight:700">30% реже</span></li>
+        <li>Челлендж проходят <span class="c-green" style="font-weight:700">70%</span> детей</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:16px;font-size:15px;color:var(--dim);text-align:center;font-style:italic">«Дети жалуются не на сложность Python, а что перемены слишком короткие — не успевают поиграть в кибер-зарядку»</div>
+</div>
+
+<!-- 39. Переход -->
+<div class="s splash" data-a="green" style="justify-content:center;align-items:center">
+  <div style="text-align:center;max-width:700px">
+    <div style="font-size:18px;color:var(--dim);margin-bottom:16px">Экосистема готова. Платформа работает.<br>Школы открыты. Колледж запущен.</div>
+    <div class="trans-text">Но главное — <strong>что происходит с детьми?</strong></div>
+  </div>
+</div>
+
+<!-- ══════════ БЛОК 9B: ЗАХАРЕНКО ══════════ -->
+
+<!-- 40. Splash — Захаренко -->
+<div class="s splash" data-a="green-l">
+  <div class="splash-dept c-green-l glow-green" style="color:#45e083">Детство без ограничений</div>
+  <div class="splash-line" style="background:#45e083"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Вита Захаренко</div>
+  <div class="splash-vision">Мы отменили правило «подрастёшь — тогда сможешь»</div>
+</div>
+
+<!-- 41. Мы отменили правило -->
+<div class="s" data-a="green-l">
+  <div class="sp"><div class="dot" style="background:#45e083"></div><span style="color:#45e083;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.55">Дети</span><span class="nm">Захаренко</span></div>
+  <div style="text-align:center;margin-bottom:20px">
+    <div style="font-size:20px;color:var(--dim);line-height:1.6;margin-bottom:20px">Когда-то детям говорили:</div>
+    <div style="font-size:18px;color:#f4846b;line-height:1.7;margin-bottom:20px;text-decoration:line-through">Подрастёшь — тогда сможешь открыть бизнес<br>Подрастёшь — тогда сможешь создавать технологии<br>Подрастёшь — тогда сможешь выступать на сценах<br>Подрастёшь — тогда сможешь изменить мир</div>
+    <div class="t2" style="font-size:34px;line-height:1.2"><span style="color:#45e083">МЫ ОТМЕНИЛИ ЭТО ПРАВИЛО.</span></div>
+  </div>
+</div>
+
+<!-- 42. Возраст и действие -->
+<div class="s" data-a="green-l">
+  <div class="sp"><div class="dot" style="background:#45e083"></div><span style="color:#45e083;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.55">Дети</span><span class="nm">Захаренко</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:16px;text-align:center">В 2030 наши дети не ждут взросления</div>
+  <div class="age-tl">
+    <div class="age-row"><div class="age-num" style="color:#45e083">12 лет</div><div class="age-txt"><div class="at-title">Запускают стартапы</div><div class="at-sub">Первый доход, первая команда</div></div></div>
+    <div class="age-row"><div class="age-num" style="color:#45e083">13 лет</div><div class="age-txt"><div class="at-title">Работают над международными проектами</div><div class="at-sub">Контакты по миру, опыт в продакшене</div></div></div>
+    <div class="age-row"><div class="age-num" style="color:#45e083">14 лет</div><div class="age-txt"><div class="at-title">Выступают на конференциях</div><div class="at-sub">Публичный голос, известность</div></div></div>
+    <div class="age-row"><div class="age-num" style="color:#45e083">15 лет</div><div class="age-txt"><div class="at-title">Проходят стажировки в крупнейших компаниях</div><div class="at-sub">Реальный опыт работы, рекомендации</div></div></div>
+    <div class="age-row"><div class="age-num" style="color:#45e083">16 лет</div><div class="age-txt"><div class="at-title">Создают продукты для тысяч людей</div><div class="at-sub">Деньги, портфолио, готовность к карьере</div></div></div>
+  </div>
+  <div style="text-align:center;margin-top:8px;font-size:16px;color:var(--dim)">Не потому что они гении. Потому что им дали возможность попробовать.</div>
+</div>
+
+<!-- 43. Старый vs Новый подход -->
+<div class="s" data-a="green-l">
+  <div class="sp"><div class="dot" style="background:#45e083"></div><span style="color:#45e083;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.55">Дети</span><span class="nm">Захаренко</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:16px;text-align:center">Образование нового типа</div>
+  <div class="con">
+    <div class="con-old">
+      <h3>Старый подход</h3>
+      <ul>
+        <li>Выбирай: программирование ИЛИ предпринимательство ИЛИ дизайн</li>
+        <li>Учим профессиям, которые могут исчезнуть к 2030</li>
+        <li>Ребёнок — специалист в узкой области</li>
+      </ul>
+    </div>
+    <div class="con-vs">→</div>
+    <div class="con-new">
+      <h3>Наш подход</h3>
+      <ul>
+        <li>Программирование + предпринимательство + дизайн + инженерия + наука + творчество</li>
+        <li>Учим <span style="color:#45e083;font-weight:700">создавать новое</span>, видеть возможности, брать ответственность</li>
+        <li>Ребёнок — универсальный творец, как устроен реальный мир</li>
+      </ul>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:12px;font-size:16px;color:var(--dim)">Потому что половины профессий 2030 года ещё не существует.</div>
+</div>
+
+<!-- 44. Доступ без границ -->
+<div class="s" data-a="green-l" style="justify-content:center;align-items:center">
+  <div class="sp"><div class="dot" style="background:#45e083"></div><span style="color:#45e083;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.55">Дети</span><span class="nm">Захаренко</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:24px;text-align:center">У каждого ребёнка есть доступ к лучшему</div>
+  <div class="access-row">
+    <div class="access-item"><div class="ai-icon">🏆</div>Преподавателям</div>
+    <div class="access-item"><div class="ai-icon">🤖</div>Технологиям</div>
+    <div class="access-item"><div class="ai-icon">👨‍💼</div>Экспертам</div>
+    <div class="access-item"><div class="ai-icon">🚀</div>Проектам</div>
+    <div class="access-item"><div class="ai-icon">🌍</div>Возможностям</div>
+  </div>
+  <div style="text-align:center;margin-top:24px;font-size:18px;color:var(--dim);max-width:700px">Независимо от того, живёт он в Москве, Алматы, небольшом посёлке или на другом конце планеты.</div>
+</div>
+
+<!-- 45. Карта возможностей -->
+<div class="s" data-a="green-l">
+  <div class="sp"><div class="dot" style="background:#45e083"></div><span style="color:#45e083;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.55">Дети</span><span class="nm">Захаренко</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:16px;text-align:center">Выбери свой путь</div>
+  <div class="cards cards-green" style="grid-template-columns:repeat(2,1fr);gap:14px">
+    <div class="cd" style="border-left:3px solid #45e083"><div class="cd-t" style="color:#45e083">🤖 AI-наставник 24/7</div><div class="cd-b" style="font-size:13px">Знает интересы ученика, помогает ставить цели, предлагает проекты, отвечает на вопросы, помогает не терять мотивацию</div></div>
+    <div class="cd" style="border-left:3px solid #45e083"><div class="cd-t" style="color:#45e083">🌐 Международные команды</div><div class="cd-b" style="font-size:13px">Ребёнок из Казахстана + дети из Японии, Бразилии, Германии, США. Создают реальные продукты и учатся взаимодействовать в международной среде</div></div>
+    <div class="cd" style="border-left:3px solid #45e083"><div class="cd-t" style="color:#45e083">🔬 Исследовательские лаборатории</div><div class="cd-b" style="font-size:13px">AI · Робототехника · Космос · Медицина будущего · Климат. Работают над реальными вызовами человечества</div></div>
+    <div class="cd" style="border-left:3px solid #45e083"><div class="cd-t" style="color:#45e083">🚀 Стартап-студия</div><div class="cd-b" style="font-size:13px">Запускаешь проект → получаешь наставника → собираешь команду → тестируешь идею → привлекаешь первых пользователей → получаешь грант на развитие</div></div>
+  </div>
+  <div style="text-align:center;margin-top:14px;font-size:14px;color:var(--dim)">Вместо классов — направления развития. Ребёнок сам собирает свою образовательную программу.</div>
+</div>
+
+<!-- 46. События и партнёры -->
+<div class="s" data-a="green-l">
+  <div class="sp"><div class="dot" style="background:#45e083"></div><span style="color:#45e083;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.55">Дети</span><span class="nm">Захаренко</span></div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:20px;margin-bottom:10px">🎯 События</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>Международный фестиваль технологий будущего</li>
+        <li>Глобальный AI-хакатон</li>
+        <li>Олимпиада по предпринимательству</li>
+        <li>Чемпионат по созданию стартапов</li>
+        <li>Детский форум будущих лидеров</li>
+        <li>TED Kids</li>
+      </ul>
+      <div class="t2" style="font-size:20px;margin:14px 0 10px">🏕 Лагеря-миссии</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>Построить город будущего</li>
+        <li>Запустить космическую программу</li>
+        <li>Создать стартап за 14 дней</li>
+        <li>Разработать AI для глобальной проблемы</li>
+        <li>Собрать автономного робота</li>
+      </ul>
+    </div>
+    <div>
+      <div class="t2" style="font-size:20px;margin-bottom:10px">Партнёры</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px">
+        <div style="background:var(--bg2);padding:8px 12px;border-radius:8px;font-size:13px;font-weight:600;text-align:center">OpenAI</div>
+        <div style="background:var(--bg2);padding:8px 12px;border-radius:8px;font-size:13px;font-weight:600;text-align:center">Google</div>
+        <div style="background:var(--bg2);padding:8px 12px;border-radius:8px;font-size:13px;font-weight:600;text-align:center">SpaceX</div>
+        <div style="background:var(--bg2);padding:8px 12px;border-radius:8px;font-size:13px;font-weight:600;text-align:center">NASA</div>
+        <div style="background:var(--bg2);padding:8px 12px;border-radius:8px;font-size:13px;font-weight:600;text-align:center">MIT</div>
+        <div style="background:var(--bg2);padding:8px 12px;border-radius:8px;font-size:13px;font-weight:600;text-align:center">Stanford</div>
+      </div>
+      <div class="t2" style="font-size:20px;margin-bottom:10px">Спикеры</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>Лауреаты Нобелевской премии</li>
+        <li>Основатели технологических компаний</li>
+        <li>Исследователи космоса</li>
+        <li>Создатели AI-продуктов</li>
+        <li>Люди, которые меняют мир прямо сейчас</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 47. Родители выбирают возможности -->
+<div class="s" data-a="green-l">
+  <div class="sp"><div class="dot" style="background:#45e083"></div><span style="color:#45e083;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.55">Дети</span><span class="nm">Захаренко</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:16px;text-align:center">Родители выбирают не знания, а возможности</div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:18px;margin-bottom:8px;color:#f4846b;text-decoration:line-through">Раньше искали:</div>
+      <ul class="bl" style="font-size:15px">
+        <li style="color:var(--dim)">Знания <span style="color:#f4846b">✕</span> — есть у всех</li>
+      </ul>
+    </div>
+    <div>
+      <div class="t2" style="font-size:18px;margin-bottom:8px;color:#45e083">Теперь ищут:</div>
+      <ul class="bl bl-green" style="font-size:15px">
+        <li><strong>Возможности</strong> — реальные, с результатом</li>
+        <li><strong>Окружение</strong> — топ-спикеры, партнёры мирового уровня</li>
+        <li><strong>Наставников</strong> — лучших в своих областях</li>
+        <li><strong>Проекты</strong> — не учебные, а настоящие</li>
+        <li><strong>Опыт</strong> — работа в международных командах</li>
+        <li><strong>Будущее</strong> — которое ребёнок строит уже сегодня</li>
+      </ul>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:16px;font-size:20px;font-weight:700;color:#45e083">Каждый пятый AI-бизнес в СНГ основан выпускником Zerocoder</div>
+</div>
+
+<!-- 48. Итог -->
 <div class="s" data-a="green" style="align-items:center">
   <div class="sp"><div class="dot b-green"></div><span class="c-green">Дети</span><span class="nm">Медведева + Захаренко</span></div>
-  <div class="t2 c-green ctr glow-green" style="font-size:38px">Самые большие возможности мира — для детей</div>
-  <div class="sub ctr" style="margin-top:12px;font-size:18px">Каждый пятый AI-бизнес в СНГ основан выпускником Zerocoder</div>
+  <div class="t2 c-green ctr glow-green" style="font-size:34px;line-height:1.3">ДЕТСТВО — НЕ ПОДГОТОВКА К ЖИЗНИ.<br>ДЕТСТВО — ЭТО УЖЕ ЖИЗНЬ.</div>
+  <div style="text-align:center;margin-top:16px;font-size:18px;color:var(--dim);max-width:700px">И мы даём детям инструменты, чтобы они её создавали.</div>
   <div class="str b-green"></div>
 </div>
 
@@ -907,13 +1187,13 @@ function updTl(idx){
   else if(idx<7)bi=2;
   else if(idx<10)bi=3;
   else if(idx<13)bi=4;
-  else if(idx<20)bi=5;
-  else if(idx<24)bi=6;
-  else if(idx<28)bi=7;
-  else if(idx<31)bi=8;
-  else if(idx<34)bi=9;
-  else if(idx<38)bi=10;
-  else if(idx<40)bi=11;
+  else if(idx<21)bi=5;
+  else if(idx<25)bi=6;
+  else if(idx<29)bi=7;
+  else if(idx<32)bi=8;
+  else if(idx<35)bi=9;
+  else if(idx<52)bi=10;
+  else if(idx<55)bi=11;
   else bi=12;
   for(var i=0;i<steps.length;i++){
     steps[i].className='tl-step';
