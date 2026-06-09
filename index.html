@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Зерокодер 2030</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#1b1b1b;--bg2:#262626;--bg3:#2e2e2e;--text:#fff;--dim:#777;
+  --purple:#9f7bf6;--purple-d:#5b2dcd;--purple-g:rgba(159,123,246,.15);
+  --green:#29dc6d;--green-l:#45e083;
+  --yellow:#eeff00;--coral:#f4846b;--lavender:#a789ec;--cyan:#00c8ff;
+  --font:'Manrope',sans-serif;
+}
+html{scroll-snap-type:y mandatory;overflow-y:scroll;scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.4;-webkit-font-smoothing:antialiased}
+
+.s{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:56px 100px;position:relative;overflow:hidden;opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}
+.s.visible{opacity:1;transform:none}
+[data-a="purple"]::before{background:var(--purple)}[data-a="purple"]::after{background:var(--purple-d)}
+[data-a="green"]::before{background:var(--green)}[data-a="green"]::after{background:var(--green-l)}
+[data-a="green-l"]::before{background:var(--green-l)}[data-a="green-l"]::after{background:var(--green)}
+[data-a="yellow"]::before{background:var(--yellow)}[data-a="yellow"]::after{background:var(--coral)}
+[data-a="coral"]::before{background:var(--coral)}[data-a="coral"]::after{background:var(--yellow)}
+[data-a="lavender"]::before{background:var(--lavender)}[data-a="lavender"]::after{background:var(--purple)}[data-a="cyan"]::before{background:var(--cyan)}[data-a="cyan"]::after{background:var(--purple-d)}
+[data-a="purple-d"]::before{background:var(--purple-d)}[data-a="purple-d"]::after{background:var(--purple)}
+
+.sp{position:absolute;top:28px;left:36px;display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.55;z-index:2}
+.sp .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sp .nm{font-weight:400;opacity:.7}
+
+.prog{position:fixed;top:0;left:0;height:3px;z-index:999;transition:width .3s}
+.cnt{position:fixed;bottom:24px;right:36px;font-size:12px;color:var(--dim);z-index:999}
+.nav{position:fixed;bottom:24px;left:36px;display:flex;gap:8px;z-index:999}
+.nav button{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:var(--text);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.nav button:hover{background:rgba(255,255,255,.12);transform:scale(1.05)}
+.fsb{position:fixed;top:18px;right:36px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:var(--text);padding:5px 12px;border-radius:7px;cursor:pointer;font-size:11px;font-family:var(--font);z-index:999;transition:all .2s}
+.fsb:hover{background:rgba(255,255,255,.12)}
+
+.t1{font-size:52px;font-weight:800;line-height:1.08;max-width:1100px}
+.t2{font-size:34px;font-weight:700;line-height:1.15;max-width:1050px}
+.t3{font-size:22px;font-weight:500;line-height:1.5;max-width:950px}
+.sub{font-size:18px;color:var(--dim);font-weight:400;max-width:900px;margin-top:12px}
+.ctr{text-align:center;max-width:100%}
+.bn{font-size:88px;font-weight:800;line-height:1;letter-spacing:-2px}
+.bn-s{font-size:56px;font-weight:800;line-height:1}
+.bn-row{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap}
+.bn-arr{font-size:36px;font-weight:200;color:var(--dim)}
+.mr{display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.m{text-align:center}
+.mv{font-size:48px;font-weight:800;line-height:1.1}
+.ml{font-size:14px;color:var(--dim);font-weight:500;margin-top:6px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;width:100%}
+.cd{background:var(--bg2);border-radius:14px;padding:24px;border:1px solid rgba(255,255,255,.04);position:relative;overflow:hidden}
+.cd::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:.6}
+.cd-t{font-size:16px;font-weight:700;margin-bottom:8px}
+.cd-b{font-size:14px;color:var(--dim);line-height:1.5}
+.cards-purple .cd::before{background:var(--purple)}.cards-green .cd::before{background:var(--green)}
+.cards-green-l .cd::before{background:var(--green-l)}.cards-yellow .cd::before{background:var(--yellow)}
+.cards-coral .cd::before{background:var(--coral)}.cards-lavender .cd::before{background:var(--lavender)}.cards-cyan .cd::before{background:var(--cyan)}
+
+.bl{list-style:none;display:flex;flex-direction:column;gap:12px}
+.bl li{font-size:20px;font-weight:500;padding-left:26px;position:relative;line-height:1.4}
+.bl li::before{content:'';position:absolute;left:0;top:11px;width:8px;height:8px;border-radius:50%}
+.q{font-size:30px;font-weight:700;max-width:950px;line-height:1.3;border-left:4px solid;padding-left:22px}
+.tb{width:100%;border-collapse:collapse;font-size:13px}
+.tb th{text-align:left;font-weight:700;padding:8px 10px;border-bottom:2px solid rgba(255,255,255,.08);font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--dim)}
+.tb td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.03);vertical-align:top;color:var(--dim)}
+.tb td:first-child{color:var(--text);font-weight:600}
+.c2{display:grid;grid-template-columns:1fr 1fr;gap:40px;width:100%}
+.str{position:absolute;bottom:0;left:0;right:0;height:4px}
+
+.c-purple{color:var(--purple)}.c-green{color:var(--green)}.c-green-l{color:var(--green-l)}
+.c-yellow{color:var(--yellow)}.c-coral{color:var(--coral)}.c-lavender{color:var(--lavender)}.c-cyan{color:var(--cyan)}
+.b-purple{background:var(--purple)}.b-green{background:var(--green)}.b-green-l{background:var(--green-l)}
+.b-yellow{background:var(--yellow)}.b-coral{background:var(--coral)}.b-lavender{background:var(--lavender)}.b-cyan{background:var(--cyan)}
+.bl-purple li::before{background:var(--purple)}.bl-green li::before{background:var(--green)}
+.bl-green-l li::before{background:var(--green-l)}.bl-yellow li::before{background:var(--yellow)}
+.bl-coral li::before{background:var(--coral)}.bl-lavender li::before{background:var(--lavender)}.bl-cyan li::before{background:var(--cyan)}
+
+.glow-purple{text-shadow:0 0 40px rgba(159,123,246,.3),0 0 80px rgba(159,123,246,.15)}
+.glow-green{text-shadow:0 0 40px rgba(41,220,109,.3),0 0 80px rgba(41,220,109,.15)}
+.glow-yellow{text-shadow:0 0 40px rgba(238,255,0,.25),0 0 80px rgba(238,255,0,.1)}
+.glow-coral{text-shadow:0 0 40px rgba(244,132,107,.3),0 0 80px rgba(244,132,107,.15)}
+.glow-lavender{text-shadow:0 0 40px rgba(167,137,236,.3),0 0 80px rgba(167,137,236,.15)}.glow-cyan{text-shadow:0 0 40px rgba(0,200,255,.3),0 0 80px rgba(0,200,255,.15)}
+
+/* Splash — dept name biggest */
+.splash{align-items:center;justify-content:center;text-align:center}
+.splash-dept{font-size:64px;font-weight:800;letter-spacing:-1px;line-height:1.05;margin-bottom:12px}
+.splash-sub{font-size:20px;font-weight:400;color:var(--dim);margin-bottom:8px}
+.splash-speaker{font-size:18px;font-weight:400;color:var(--dim);opacity:.7}
+.splash-vision{font-size:18px;font-weight:400;color:var(--dim);max-width:700px;margin:20px auto 0;line-height:1.5;opacity:.8}
+.splash-line{width:60px;height:3px;margin:0 auto 20px;border-radius:2px}
+
+/* Cover */
+.cover-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.cover-bg canvas{position:absolute;inset:0;width:100%;height:100%}
+.cover-year{font-size:180px;font-weight:800;opacity:.04;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);letter-spacing:-8px;z-index:0;white-space:nowrap}
+.grid-lines{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.03}
+.grid-lines div{position:absolute;background:var(--text)}
+.grid-lines .vl{width:1px;top:0;bottom:0}
+.grid-lines .hl{height:1px;left:0;right:0}
+
+/* Stat box */
+.stat-box{background:var(--bg2);border-radius:16px;padding:28px 32px;border:1px solid rgba(255,255,255,.04);position:relative;overflow:hidden;min-width:180px}
+.stat-box .sb-line{position:absolute;top:0;left:0;right:0;height:3px}
+.stat-box .sv{font-size:42px;font-weight:800;line-height:1}
+.stat-box .sl{font-size:13px;color:var(--dim);margin-top:8px;line-height:1.4}
+.stat-box .si{font-size:11px;color:var(--dim);margin-top:4px;font-style:italic}
+
+/* Flow */
+.flow{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:24px 0}
+.flow-step{background:var(--bg2);border-radius:12px;padding:16px 24px;border:1px solid rgba(255,255,255,.04);font-size:15px;font-weight:600;min-width:140px;text-align:center;position:relative}
+.flow-arr{font-size:20px;color:var(--dim)}
+
+.evo{display:flex;align-items:flex-start;justify-content:center;gap:24px;flex-wrap:wrap}
+.evo-s{text-align:center;max-width:180px}
+.evo-y{font-size:40px;font-weight:800}
+.evo-d{font-size:14px;color:var(--dim);margin-top:6px;line-height:1.4}
+.evo-ar{font-size:24px;color:var(--dim);align-self:center}
+
+/* slides visible by default; JS animates them in */
+.s.visible{opacity:1;transform:none}
+
+@media(max-width:1200px){.s{padding:40px 50px}.splash-dept{font-size:44px}.bn{font-size:64px}.bn-s{font-size:40px}.c2{grid-template-columns:1fr}}
+@media(max-width:768px){.s{padding:32px 20px}.splash-dept{font-size:32px}.splash-sub{font-size:16px}.splash-speaker{font-size:14px}.splash-vision{font-size:15px}.t1{font-size:32px}.t2{font-size:24px}.t3{font-size:17px}.bn{font-size:48px}.bn-s{font-size:32px}.bn-arr{font-size:24px}.mv{font-size:32px}.ml{font-size:12px}.q{font-size:22px}.sp{font-size:10px;top:16px;left:16px}.sp .dot{width:6px;height:6px}.stat-box{min-width:120px;padding:16px 12px}.stat-box .sv{font-size:28px}.stat-box .sl{font-size:11px}.cards{grid-template-columns:1fr!important}.c2{grid-template-columns:1fr!important}.mr{gap:16px}.flow{gap:8px}.flow-step{min-width:auto;padding:10px 14px;font-size:13px}.evo-s{max-width:120px}.nav button{width:32px;height:32px}.cnt{font-size:10px;right:12px;bottom:12px}.nav{left:12px;bottom:12px}.fsb{top:12px;right:12px;font-size:10px;padding:4px 8px}.tb{font-size:10px}.tb td,.tb th{padding:4px 6px}.bl li{font-size:16px;padding-left:20px}.cover-year{font-size:80px}}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="cnt" id="cnt">1</div>
+<div class="nav"><button onclick="go(-1)">←</button><button onclick="go(1)">→</button></div>
+<button class="fsb" onclick="fs()">⤢</button>
+
+<!-- ═══ 1. ОБЛОЖКА ═══ -->
+<div class="s cover" data-a="purple" style="align-items:center;justify-content:center;text-align:center">
+  <div class="cover-bg"><canvas id="coverCanvas"></canvas>
+    <div class="grid-lines"><div class="vl" style="left:20%"></div><div class="vl" style="left:40%"></div><div class="vl" style="left:60%"></div><div class="vl" style="left:80%"></div><div class="hl" style="top:25%"></div><div class="hl" style="top:50%"></div><div class="hl" style="top:75%"></div></div>
+  </div>
+  <div class="cover-year">2030</div>
+  <div style="position:relative;z-index:2">
+    <div style="font-size:96px;font-weight:800;letter-spacing:-3px;line-height:.95" class="glow-purple"><span class="c-purple">ЗЕРОКОДЕР</span><br>2030</div>
+    <div style="font-size:22px;font-weight:300;color:var(--dim);margin-top:24px;letter-spacing:1px">Будущее, которое мы строим</div>
+  </div>
+  <div class="str b-purple"></div>
+</div>
+
+<!-- ═══ 2. МАНИФЕСТ ═══ -->
+<div class="s" data-a="purple-d" style="align-items:center">
+  <div class="q c-purple ctr" style="border-color:var(--purple);font-size:36px;text-align:center;border:none;padding:0;max-width:950px">
+    В 2025 мы помогали людям найти своё место в новой экономике.<br>В 2030 наши выпускники эту экономику <span style="font-size:42px" class="glow-purple">создают.</span>
+  </div>
+  <div class="str b-purple"></div>
+</div>
+
+<!-- ══════════ БЛОК 1: ТЕХНИЧЕСКИЙ ══════════ -->
+
+<!-- 3. Приветственный -->
+<div class="s splash" data-a="lavender">
+  <div class="splash-dept c-lavender glow-lavender">Технический отдел</div>
+  <div class="splash-line b-lavender"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Евгения Заяц</div>
+  <div class="splash-vision">Как одна команда обслуживает поток в 20 раз больше — и ничего не горит</div>
+</div>
+
+<!-- 4. Проблема → Решение -->
+<div class="s" data-a="lavender">
+  <div class="sp"><div class="dot b-lavender"></div><span class="c-lavender">Технический</span><span class="nm">Заяц</span></div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:28px;margin-bottom:16px">Сейчас: режим огня</div>
+      <ul class="bl bl-lavender" style="font-size:17px"><li>7 подотделов, ~30 человек — всё на людях</li><li>Каждый шаг роста = больше пожаров</li><li>Чтобы вырасти вдвое — нанять вдвое</li></ul>
+    </div>
+    <div>
+      <div class="t2" style="font-size:28px;margin-bottom:16px">Сдвиг</div>
+      <ul class="bl bl-lavender" style="font-size:17px"><li>Не сокращаем людей — снимаем рутину</li><li>Держим своё там, где даёт уникальное преимущество (детская платформа без аналогов), а массовый поток — на гибком GetCourse</li><li>Поверх всего — тонкий ИИ-слой автоматизации</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- 5. ×20 -->
+<div class="s" data-a="lavender" style="align-items:center">
+  <div class="sp"><div class="dot b-lavender"></div><span class="c-lavender">Технический</span><span class="nm">Заяц</span></div>
+  <div class="bn-row" style="margin-bottom:20px"><div><div class="bn">714</div><div class="ml">учеников/мес</div></div><div class="bn-arr">→</div><div><div class="bn c-lavender glow-lavender">14 286</div><div class="ml">учеников/мес</div></div></div>
+  <div class="bn-row" style="margin-bottom:16px"><div><div class="bn-s">50 млн</div><div class="ml">выручка/мес</div></div><div class="bn-arr">→</div><div><div class="bn-s c-lavender">1 млрд ₽</div><div class="ml">выручка/мес</div></div></div>
+  <div class="sub ctr">Средний чек 70 000 ₽ · рост ×20 · штат не вырос</div>
+</div>
+
+<!-- 6. Как это работает -->
+<div class="s" data-a="lavender">
+  <div class="sp"><div class="dot b-lavender"></div><span class="c-lavender">Технический</span><span class="nm">Заяц</span></div>
+  <div class="t2" style="font-size:28px;margin-bottom:24px">Как это работает</div>
+  <div class="cards cards-lavender">
+    <div class="cd"><div class="cd-t">Продукт · 9</div><div class="cd-b">14 000 студентов вместо 714 — рутину держат агенты</div></div>
+    <div class="cd"><div class="cd-t">Маркетинг</div><div class="cd-b">Гипотеза → автосборка воронки → запуск → замер</div></div>
+    <div class="cd"><div class="cd-t">Поддержка</div><div class="cd-b">Агент закрывает простые вопросы за секунды</div></div>
+    <div class="cd"><div class="cd-t">Дизайн · 5</div><div class="cd-b">Арт-директора ИИ задают вкус, верстает машина</div></div>
+    <div class="cd"><div class="cd-t">Аналитика · 1</div><div class="cd-b">Проактивная — сама ловит аномалию</div></div>
+    <div class="cd"><div class="cd-t c-lavender">ИИ-разработка · 4</div><div class="cd-b">Ядро — строят платформу-слой для остальных</div></div>
+  </div>
+</div>
+
+<!-- 7. Итог -->
+<div class="s" data-a="lavender" style="align-items:center">
+  <div class="sp"><div class="dot b-lavender"></div><span class="c-lavender">Технический</span><span class="nm">Заяц</span></div>
+  <div class="q c-lavender ctr" style="border-color:var(--lavender);font-size:34px;text-align:center;border:none;padding:0">Моя задача как CTO — не тушить пожары,<br>а построить то, что не горит.</div>
+  <div class="sub ctr" style="margin-top:16px">Режим огня → работает как часы</div>
+  <div class="str b-lavender"></div>
+</div>
+
+<!-- ══════════ БЛОК 2: МАРКЕТИНГ ══════════ -->
+
+<!-- 8. Приветственный -->
+<div class="s splash" data-a="cyan">
+  <div class="splash-dept c-cyan glow-cyan">Маркетинг</div>
+  <div class="splash-line b-cyan"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Валерий Курземнек</div>
+  <div class="splash-vision">Мы не покупаем будущее EdTech-маркетинга. Мы его строим.</div>
+</div>
+
+<!-- 9. Рынок vs Мы -->
+<div class="s" data-a="cyan">
+  <div class="sp"><div class="dot b-cyan"></div><span class="c-cyan">Маркетинг</span><span class="nm">Курземнек</span></div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:26px;margin-bottom:14px">Рынок: ручной труд</div>
+      <ul class="bl bl-cyan" style="font-size:16px"><li>Аукционы перегреты, CAC растёт</li><li>Гипотеза → запуск = недели</li><li>95% покупает трафик руками</li></ul>
+    </div>
+    <div>
+      <div class="t2" style="font-size:26px;margin-bottom:14px">Мы: <span class="c-cyan">агенты уже в проде</span></div>
+      <ul class="bl bl-cyan" style="font-size:16px"><li>Трафик, тексты, лендинги, аналитика — агенты</li><li>Гипотеза → трафик = дни</li><li>AI-first, данные сквозные</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- 10. Вижн + Итог -->
+<div class="s" data-a="cyan">
+  <div class="sp"><div class="dot b-cyan"></div><span class="c-cyan">Маркетинг</span><span class="nm">Курземнек</span></div>
+  <div class="t2" style="font-size:28px;margin-bottom:20px">К 2030: маркетинг = система, которая масштабируется</div>
+  <ul class="bl bl-cyan" style="margin-bottom:28px">
+    <li>Рутину перформанса возьмут агенты — человек в стратегию</li>
+    <li>Контент полностью генеративный и персональный</li>
+    <li>Один оператор = целое агентство</li>
+  </ul>
+  <div class="q c-cyan ctr" style="border-color:var(--cyan);font-size:26px;text-align:center;border:none;padding:0;color:var(--purple)">
+    Пока рынок спорит, заменят ли агенты маркетологов — у нас агенты уже ведут трафик.<br>Мы выбрали быть теми, кто живёт в этом будущем на пару лет раньше остальных.<br><strong>2030 — не туманное будущее. Это направление, в котором мы уже едем.</strong>
+  </div>
+  <div class="str b-cyan"></div>
+</div>
+
+<!-- ══════════ БЛОК 3: ПРОДАЖИ ══════════ -->
+
+<!-- 11. Приветственный -->
+<div class="s splash" data-a="green-l">
+  <div class="splash-dept c-green-l glow-green">Отдел продаж</div>
+  <div class="splash-line b-green-l"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Ирина Логинова</div>
+  <div class="splash-vision">ИИ-агент снимает рутину, удваивает выручку на менеджера и позволяет контролировать 20–23 вместо 5–10</div>
+</div>
+
+<!-- 12. Содержание -->
+<div class="s" data-a="green-l">
+  <div class="sp"><div class="dot b-green-l"></div><span class="c-green-l">Продажи</span><span class="nm">Логинова</span></div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:24px;margin-bottom:12px">Найм через виртуальные комнаты</div>
+      <ul class="bl bl-green-l" style="font-size:15px"><li>Парсеры на job-площадках → кандидат в виртуальную комнату</li><li>Знакомится с аватарами коллег, пробует задачи до выхода на работу</li><li>Подходящие → HR, остальные → кадровый резерв</li></ul>
+      <div class="t2" style="font-size:24px;margin:20px 0 12px">Приоритизация прозвона</div>
+      <ul class="bl bl-green-l" style="font-size:15px"><li>Данные клиента → очерёдность автоматически</li><li>Первый в базе — первый приоритет</li></ul>
+    </div>
+    <div>
+      <div class="t2" style="font-size:24px;margin-bottom:12px">ИИ-агент в CRM</div>
+      <ul class="bl bl-green-l" style="font-size:15px"><li>Заполняет карточку, пишет комментарии</li><li><span class="c-green-l">–25% времени · –50% ошибок</span></li></ul>
+      <div class="t2" style="font-size:24px;margin:20px 0 12px">Что меняется для руководителя</div>
+      <ul class="bl bl-green-l" style="font-size:15px"><li>Сейчас: 1 руководитель эффективно контролирует 5–10 человек</li><li>После: <span class="c-green-l">1 руководитель → 20–23</span></li><li>Руководитель не делает ручную проверку — разбирает сигналы системы о реальных нарушениях</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- 13. Итог -->
+<div class="s" data-a="green-l" style="align-items:center">
+  <div class="sp"><div class="dot b-green-l"></div><span class="c-green-l">Продажи</span><span class="nm">Логинова</span></div>
+  <div class="mr" style="gap:32px">
+    <div class="stat-box"><div class="sb-line b-green-l"></div><div class="sv c-green-l">1 млн → 2 млн ₽</div><div class="sl">выручка на менеджера</div></div>
+  </div>
+  <div class="sub ctr" style="margin-top:20px">Подготовку всех автоматизаций делают руководители — они прошли обучение по вайбкодингу</div>
+  <div class="str b-green-l"></div>
+</div>
+
+<!-- ══════════ БЛОК 4: ПРОДЮСЕРСКИЙ ЦЕНТР ══════════ -->
+
+<!-- 14. Приветственный -->
+<div class="s splash" data-a="yellow">
+  <div class="splash-dept c-yellow glow-yellow">Продюсерский центр</div>
+  <div class="splash-line b-yellow"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Дарья Копылова</div>
+  <div class="splash-vision">Задача продюсера — не контроль людей-исполнителей, а создание агентов, реализующих любые идеи. Границы возможного ×100!</div>
+</div>
+
+<!-- 15. Эволюция + Мощность -->
+<div class="s" data-a="yellow">
+  <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Продюсерский центр</span><span class="nm">Копылова</span></div>
+  <div class="mr" style="margin-bottom:28px">
+    <div class="stat-box"><div class="sb-line b-yellow"></div><div class="sv c-yellow">№1</div><div class="sl">в ИИ-образовании РФ</div></div>
+    <div class="stat-box"><div class="sb-line b-yellow"></div><div class="sv c-yellow">737 млн ₽</div><div class="sl">выручка 2025, +140% г/г</div></div>
+    <div class="stat-box"><div class="sb-line b-yellow"></div><div class="sv c-yellow">4</div><div class="sl">продюсера</div></div>
+  </div>
+  <div class="evo">
+    <div class="evo-s"><div class="evo-y">2025</div><div class="evo-d">Ставит задачи людям</div></div>
+    <div class="evo-ar">→</div>
+    <div class="evo-s"><div class="evo-y">2026</div><div class="evo-d">Вайбкодит и создаёт агентов</div></div>
+    <div class="evo-ar">→</div>
+    <div class="evo-s"><div class="evo-y c-yellow">2030</div><div class="evo-d c-yellow">Дирижирует командой ИИ-агентов</div></div>
+  </div>
+  <div class="bn-row" style="margin-top:28px"><div><div class="bn-s">20</div><div class="ml">активностей/мес</div></div><div class="bn-arr">→</div><div><div class="bn-s c-yellow">200</div><div class="ml">активностей/мес</div></div></div>
+  <div class="sub ctr" style="margin-top:8px">4 продюсера, 0 линейных исполнителей. Результат — <span class="c-yellow" style="font-weight:700">10 млрд ₽ выручки в год</span></div>
+</div>
+
+<!-- 16. Что делают агенты -->
+<div class="s" data-a="yellow">
+  <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Продюсерский центр</span><span class="nm">Копылова</span></div>
+  <div class="cards cards-yellow" style="grid-template-columns:repeat(3,1fr)">
+    <div class="cd"><div class="cd-t">ИИ-вебинары</div><div class="cd-b">Аватар на <span class="c-yellow">140 языков</span>, запуск за 60 мин (рынок: 2 недели)</div></div>
+    <div class="cd"><div class="cd-t">Воронки 24/7</div><div class="cd-b">Тестируют тексты, лендинги, офферы. Симулятор: <span class="c-yellow">1000 вариантов</span> за ночь</div></div>
+    <div class="cd"><div class="cd-t">Контент-завод</div><div class="cd-b">1 час эксперта → <span class="c-yellow">1000 единиц</span> контента на 140 языках</div></div>
+    <div class="cd"><div class="cd-t">3D-голограмма</div><div class="cd-b">1 эксперт → 50 городов, задержка 0,3 сек</div></div>
+    <div class="cd"><div class="cd-t">Продажи 24/7</div><div class="cd-b">ИИ-консультант на любом языке, переключение на живого</div></div>
+    <div class="cd"><div class="cd-t">Гиперперсонализация</div><div class="cd-b">Вебинары под микросегменты в реальном времени</div></div>
+  </div>
+</div>
+
+<!-- 17. Итог -->
+<div class="s" data-a="yellow" style="align-items:center">
+  <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Продюсерский центр</span><span class="nm">Копылова</span></div>
+  <div class="bn c-yellow glow-yellow" style="margin-bottom:8px">10 млрд ₽</div>
+  <div class="ml" style="font-size:16px;text-align:center">выручка в год к 2030</div>
+  <div class="q c-yellow ctr" style="border-color:var(--yellow);font-size:28px;text-align:center;border:none;padding:0;margin-top:32px;color:var(--yellow)">Мы не гонимся за будущим. Мы его создаём.</div>
+  <div class="str b-yellow"></div>
+</div>
+
+<!-- ══════════ БЛОК 5: ОПЕРАЦИОННЫЙ ══════════ -->
+
+<!-- 18. Приветственный -->
+<div class="s splash" data-a="coral">
+  <div class="splash-dept c-coral glow-coral">Директор по продукту</div>
+  <div class="splash-line b-coral"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Дарина</div>
+  <div class="splash-vision">Моя главная компетенция — убедительно делать вид, что это всё ещё я ими управляю</div>
+</div>
+
+<!-- 19. Совет + Команда -->
+<div class="s" data-a="coral">
+  <div class="sp"><div class="dot b-coral"></div><span class="c-coral">Директор по продукту</span><span class="nm">Дарина</span></div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:24px;margin-bottom:14px">Совет Агентов</div>
+      <div class="cards cards-coral" style="grid-template-columns:1fr 1fr;gap:8px">
+        <div class="cd" style="padding:12px"><div class="cd-t" style="font-size:13px">AI CEO</div></div>
+        <div class="cd" style="padding:12px"><div class="cd-t" style="font-size:13px">AI CTO</div></div>
+        <div class="cd" style="padding:12px"><div class="cd-t" style="font-size:13px">AI CFO</div></div>
+        <div class="cd" style="padding:12px"><div class="cd-t" style="font-size:13px">AI Marketing</div></div>
+        <div class="cd" style="padding:12px"><div class="cd-t" style="font-size:13px">AI Customer Success</div></div>
+        <div class="cd" style="padding:12px"><div class="cd-t c-coral" style="font-size:13px">AI Петрович</div></div>
+      </div>
+      <div style="margin-top:10px;font-size:14px;color:var(--dim)">14 вариантов стратегии → выбрать ту, что с наименьшей вероятностью приведёт к захвату человечества</div>
+    </div>
+    <div>
+      <div class="t2" style="font-size:24px;margin-bottom:14px">Команда</div>
+      <div style="font-family:monospace;font-size:20px;line-height:2">
+        <span class="c-coral" style="font-size:44px;font-weight:800">12 000</span> агентов<br><span style="font-size:24px">300</span> супервайзеров<br><span style="font-size:18px">40</span> контролёров<br><span class="c-coral" style="font-size:16px;font-weight:800">1 человек ← я</span>
+      </div>
+      <div style="margin-top:12px;font-size:14px;color:var(--dim)">Нажимаю «Одобрить релиз». «Вы уверены?» — «Нет.» Выкатывается.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 20. Пользователи + Метрики -->
+<div class="s" data-a="coral">
+  <div class="sp"><div class="dot b-coral"></div><span class="c-coral">Директор по продукту</span><span class="nm">Дарина</span></div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:24px;margin-bottom:12px">Пользователи не опрашиваются</div>
+      <div class="t3" style="font-size:17px;color:var(--dim)">ИИ знает раньше пользователя. Человек только <strong style="color:var(--text)">подумал</strong> изучить Python:</div>
+      <div class="flow" style="margin-top:16px">
+        <div class="flow-step"><div class="sb-line b-coral"></div>Продали курс</div>
+        <div class="flow-arr">→</div>
+        <div class="flow-step"><div class="sb-line b-coral"></div>Сертификат</div>
+        <div class="flow-arr">→</div>
+        <div class="flow-step"><div class="sb-line b-coral"></div>Трудоустроен</div>
+      </div>
+    </div>
+    <div>
+      <div class="t2" style="font-size:24px;margin-bottom:12px">Метрики + Путешествие во времени</div>
+      <table class="tb"><tr><td>Конверсия</td><td class="c-coral">↑</td></tr><tr><td>Выручка</td><td class="c-coral">↑</td></tr><tr><td>Retention</td><td class="c-coral">↑</td></tr><tr><td>NPS</td><td class="c-coral">↑</td></tr></table>
+      <div style="margin-top:10px;font-size:14px;color:var(--dim)">Не помню почему. Но графики красивые.</div>
+      <div style="margin-top:14px;font-size:15px">Фичи — <span class="c-coral">за 2 недели</span> до того, как пользователи поняли, что они нужны</div>
+    </div>
+  </div>
+</div>
+
+<!-- 21. Итог -->
+<div class="s" data-a="coral" style="align-items:center">
+  <div class="sp"><div class="dot b-coral"></div><span class="c-coral">Директор по продукту</span><span class="nm">Дарина</span></div>
+  <div class="q c-coral ctr" style="border-color:var(--coral);font-size:28px;text-align:center;border:none;padding:0;color:var(--coral)">
+    «Коллеги, а давайте спросим мнение пользователей.»<br>Они смеются. Я тоже смеюсь. Потом плачу.
+  </div>
+  <div class="sub ctr" style="margin-top:20px">Главная задача CPO — напоминать агентам, что человечество ещё участвует</div>
+  <div class="str b-coral"></div>
+</div>
+
+<!-- ══════════ БЛОК 6: КЛИЕНТСКИЙ ══════════ -->
+
+<!-- 22. Приветственный -->
+<div class="s splash" data-a="yellow">
+  <div class="splash-dept c-yellow glow-yellow">Клиентский сервис</div>
+  <div class="splash-line b-yellow"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Марина Богачёва</div>
+  <div class="splash-vision">Студент уходит не с дипломом — с профессией, ИИ-инструментом и пожизненной связью с университетом</div>
+</div>
+
+<!-- 23. История + Тарифы -->
+<div class="s" data-a="yellow">
+  <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Клиентский</span><span class="nm">Богачёва</span></div>
+  <div class="t3" style="font-size:19px;color:var(--dim);margin-bottom:20px;max-width:900px">К 2030 студент приходит в Zerocoder не за курсом — за профессией, ИИ-инструментом и сообществом, которое его не отпустит. Курс — начало отношений, не конец. Вопрос только в том, <span class="c-yellow" style="font-weight:700">один ли ты в важной точке — или рядом человек?</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:12px">Пять уровней сопровождения</div>
+  <table class="tb">
+    <thead><tr><th></th><th>Базовый</th><th>Бизнес</th><th>VIP</th><th>VIP+</th><th>Luxury</th></tr></thead>
+    <tbody>
+      <tr><td>Сопровождение</td><td>Только ИИ</td><td>Продвинутый ИИ</td><td>+ Архитектор</td><td>+ Команда 3–5</td><td>+ Топ-менеджмент</td></tr>
+      <tr><td>Опыт</td><td>Программа + ИИ</td><td>Агент растёт</td><td>Персональный + гарантия</td><td>Многоагентная</td><td>Корпоративная</td></tr>
+      <tr><td>Гарантия</td><td>—</td><td>—</td><td>Возврат</td><td>KPI в договоре</td><td>Бизнес-KPI</td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:10px;font-size:15px;color:var(--yellow)">Живой человек — в верхних трёх тарифах. ФОТ растёт с VIP, не с базой.</div>
+</div>
+
+<!-- 24. Сообщество + Что даёт -->
+<div class="s" data-a="yellow">
+  <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Клиентский</span><span class="nm">Богачёва</span></div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:22px;margin-bottom:10px">5 слоёв сообщества</div>
+      <ul class="bl bl-yellow" style="font-size:15px">
+        <li><strong>Микро-круг</strong> · 5–15 чел — подобран ИИ по целям и стилю общения</li>
+        <li><strong>Ниша</strong> · 500+ чел — чат-форум по теме</li>
+        <li><strong>Поток</strong> · 50–200 чел — один курс, один челлендж</li>
+        <li><strong>Общее пространство</strong> · десятки тысяч, умный поиск</li>
+        <li><strong>Клуб выпускников</strong> — менторство, сделки, пожизненная связь</li>
+      </ul>
+      <div style="margin-top:12px;font-size:14px;color:var(--dim)">ИИ-фасилитатор подбирает контакты по скрытым параметрам: «стиль общения совместим», «темп жизни похож». SLA 15 мин при росте 5–10× без роста штата.</div>
+    </div>
+    <div>
+      <div class="t2" style="font-size:22px;margin-bottom:12px">Что это даёт компании</div>
+      <ul class="bl bl-yellow" style="font-size:15px">
+        <li>Доходимость — решается <strong>дизайном внимания</strong></li>
+        <li>Новая статья выручки — подписка на ИИ-агента</li>
+        <li>ФОТ пропорционален VIP, не базе</li>
+        <li>Курс — начало отношений. Агент увеличивает LTV кратно</li>
+      </ul>
+      <div style="margin-top:16px;font-size:15px;color:var(--yellow);font-weight:600">Единая платформа с ИИ-фасилитатором вместо 20+ разрозненных чатов</div>
+    </div>
+  </div>
+</div>
+
+<!-- 25. Итог -->
+<div class="s" data-a="yellow" style="align-items:center">
+  <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Клиентский</span><span class="nm">Богачёва</span></div>
+  <div class="q c-yellow ctr" style="border-color:var(--yellow);font-size:26px;text-align:center;border:none;padding:0;color:var(--yellow)">
+    К 2030 студент уходит не с дипломом.<br>С профессией, ИИ-инструментом, сетью контактов и пожизненной связью.<br><strong>Это новая форма образования. Сопровождение — её сердце.</strong>
+  </div>
+  <div class="str b-yellow"></div>
+</div>
+
+<!-- ══════════ БЛОК 7: КАРЬЕРНЫЙ ══════════ -->
+
+<!-- 26. Приветственный -->
+<div class="s splash" data-a="green">
+  <div class="splash-dept c-green glow-green">Карьерный центр</div>
+  <div class="splash-line b-green"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Альвина Шатрова</div>
+  <div class="splash-vision">Из отдела трудоустройства — в глобальную карьерную экосистему</div>
+</div>
+
+<!-- 27. Функции + Успехи -->
+<div class="s" data-a="green">
+  <div class="sp"><div class="dot b-green"></div><span class="c-green">Карьерный</span><span class="nm">Шатрова</span></div>
+  <div class="mr" style="margin-bottom:24px">
+    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">30%+</div><div class="sl">трудоустраиваются через КЦ</div></div>
+    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">150–300К ₽</div><div class="sl">чек окупаемости за 6 мес</div></div>
+    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">50+</div><div class="sl">компаний-партнёров</div></div>
+  </div>
+  <div class="cards cards-green" style="grid-template-columns:repeat(3,1fr)">
+    <div class="cd"><div class="cd-t c-green">AI-карьерный ассистент</div><div class="cd-b">Подбирает заказы под уровень. Специалисты — на стратегических решениях</div></div>
+    <div class="cd"><div class="cd-t c-green">Продюсерский центр</div><div class="cd-b">Личный бренд, конференции, медиа. Выпускники — публичные лица профессий</div></div>
+    <div class="cd"><div class="cd-t c-green">Инкубатор стартапов</div><div class="cd-b">Инвесторская сеть Zerocoder. От идеи до MVP и первого клиента</div></div>
+    <div class="cd"><div class="cd-t c-green">Marketplace 2.0</div><div class="cd-b">Биржа AI-специалистов с репутацией и матчингом</div></div>
+    <div class="cd"><div class="cd-t c-green">Zerocoder Agency</div><div class="cd-b">Агентство разработки из выпускников. Компании идут за готовой командой</div></div>
+    <div class="cd"><div class="cd-t c-green">Глобальный масштаб</div><div class="cd-b">Стажировки: США, ОАЭ, Германия, Сингапур. Hackathon · Grant Lab · Demo Day</div></div>
+  </div>
+</div>
+
+<!-- 28. Успехи 2030 + Итог -->
+<div class="s" data-a="green" style="align-items:center">
+  <div class="sp"><div class="dot b-green"></div><span class="c-green">Карьерный</span><span class="nm">Шатрова</span></div>
+  <div class="mr" style="margin-bottom:24px">
+    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">60%+</div><div class="sl">трудоустройство через КЦ к 2030</div></div>
+    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">1 млн ₽</div><div class="sl">чек окупаемости за 6 мес</div></div>
+    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">30%</div><div class="sl">запускают свой продукт</div></div>
+  </div>
+  <div style="font-size:18px;margin-bottom:24px"><span class="c-green" style="font-weight:700">Гарантия первого контракта</span> — оплачиваемый проект до конца обучения</div>
+  <div class="q c-green ctr" style="border-color:var(--green);font-size:26px;text-align:center;border:none;padding:0;color:var(--green)">Это не отдел поддержки — это карьерная экосистема.</div>
+  <div class="str b-green"></div>
+</div>
+
+<!-- ══════════ БЛОК 8: ФИН/ЮРИД ══════════ -->
+
+<!-- 29. Приветственный -->
+<div class="s splash" data-a="coral">
+  <div class="splash-dept c-coral glow-coral">Финансово-юридический</div>
+  <div class="splash-line b-coral"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Ирина Осипова</div>
+  <div class="splash-vision">Не операторы процессов — архитекторы систем</div>
+</div>
+
+<!-- 30. Три сдвига + Картина -->
+<div class="s" data-a="coral">
+  <div class="sp"><div class="dot b-coral"></div><span class="c-coral">Фин/юрид</span><span class="nm">Осипова</span></div>
+  <div class="mr" style="margin-bottom:28px">
+    <div class="stat-box"><div class="sb-line b-coral"></div><div class="sv" style="font-size:36px">📊</div><div class="sl" style="font-size:16px;margin-top:4px">Отчёт за <span class="c-coral" style="font-weight:700">минуту</span></div><div class="si">не за день</div></div>
+    <div class="stat-box"><div class="sb-line b-coral"></div><div class="sv" style="font-size:36px">📄</div><div class="sl" style="font-size:16px;margin-top:4px">Договор за <span class="c-coral" style="font-weight:700">2 клика</span></div><div class="si">не за неделю</div></div>
+    <div class="stat-box"><div class="sb-line b-coral"></div><div class="sv" style="font-size:36px">🤖</div><div class="sl" style="font-size:16px;margin-top:4px">AI <span class="c-coral" style="font-weight:700">предупреждает</span></div><div class="si">мы решаем</div></div>
+  </div>
+  <ul class="bl bl-coral">
+    <li><strong>Финансы:</strong> автоматически с аналитикой и прогнозами к утру понедельника</li>
+    <li><strong>Документы:</strong> в одном цифровом потоке, статус в реальном времени</li>
+    <li><strong>Юридический мониторинг:</strong> фоновый, AI сигнализирует о рисках заранее</li>
+    <li><strong>Клиенты:</strong> запрос → документ автоматически. <strong>Инвесторы:</strong> прозрачное согласование</li>
+  </ul>
+</div>
+
+<!-- 31. Итог -->
+<div class="s" data-a="coral" style="align-items:center">
+  <div class="sp"><div class="dot b-coral"></div><span class="c-coral">Фин/юрид</span><span class="nm">Осипова</span></div>
+  <div style="text-align:center;font-size:22px;line-height:1.8;margin-bottom:28px">
+    <div>Финансист видит на <span class="c-coral" style="font-weight:700">12 месяцев</span> вперёд</div>
+    <div>Юрист — <span class="c-coral" style="font-weight:700">стратег</span>, не документовед</div>
+    <div>Руководитель — фокус на <span class="c-coral" style="font-weight:700">развитии</span></div>
+  </div>
+  <div class="q c-coral ctr" style="border-color:var(--coral);font-size:26px;text-align:center;border:none;padding:0;color:var(--coral)">«Всё это возможно. Зерокодер — первый шаг.»</div>
+  <div class="str b-coral"></div>
+</div>
+
+<!-- ══════════ БЛОК 9: ДЕТИ ══════════ -->
+
+<!-- 32. Приветственный -->
+<div class="s splash" data-a="green">
+  <div class="splash-dept c-green glow-green">Детское направление</div>
+  <div class="splash-line b-green"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Лилия Медведева + Вита Захаренко</div>
+  <div class="splash-vision">Космодром для будущих миллионеров в IT. Первая русскоязычная глобальная экосистема для детей 6–18 лет</div>
+</div>
+
+<!-- 33. Масштаб + инфраструктура -->
+<div class="s" data-a="green">
+  <div class="sp"><div class="dot b-green"></div><span class="c-green">Дети</span><span class="nm">Медведева</span></div>
+  <div class="mr" style="margin-bottom:20px">
+    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">120 000</div><div class="sl">учеников к 2030</div><div class="si">40% — дети экспатов</div></div>
+    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">12</div><div class="sl">школ в 8 странах</div><div class="si">Турция, ОАЭ, Кипр и др.</div></div>
+    <div class="stat-box"><div class="sb-line b-green"></div><div class="sv c-green">300</div><div class="sl">студентов в колледже</div><div class="si">трудоустройство 90%+</div></div>
+  </div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:22px;margin-bottom:10px">Онлайн: платформа-«живой организм»</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>AI-тьютор для каждого ребёнка, адаптивный трек под скорость и интересы</li>
+        <li>AI проверяет 80% кода, преподаватели — хакатоны и разборы проектов</li>
+        <li>3 языка: русский, английский, арабский</li>
+      </ul>
+      <div class="t2" style="font-size:22px;margin:14px 0 10px">Офлайн-кампусы</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>Zerocoder Hubs — центры притяжения, а не классы</li>
+        <li>Лагеря: «Стартап за 10 дней», «Нейросети в искусстве»</li>
+        <li>Партнёрство с «Матриус»: школа полного дня</li>
+      </ul>
+    </div>
+    <div>
+      <div class="t2" style="font-size:22px;margin-bottom:10px">Колледж будущего (СПО)</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>Первое частное СПО по IT для 9–11 классов</li>
+        <li>Профессии из «Атласа будущего»: архитектор нейросетей, робототехник, VR/AR, промпт-инженер</li>
+        <li>Диплом гос. образца, проектный подход без скучной теории</li>
+        <li>Доход выпускников от <span class="c-green" style="font-weight:700">200 000 ₽</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 34. Клиентский + ЗОЖ + Вита -->
+<div class="s" data-a="green">
+  <div class="sp"><div class="dot b-green"></div><span class="c-green">Дети</span><span class="nm">Захаренко</span></div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:22px;margin-bottom:10px">Клиентский отдел + ЗОЖ</div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>AI решает <span class="c-green" style="font-weight:700">85% вопросов</span> за 30 сек. Кураторы — счастье и мотивация, не скрипты</li>
+        <li>Возвраты &lt;5% за счёт AI-аналитики настроения. Рейтинг <span class="c-green" style="font-weight:700">4.8</span></li>
+        <li>Челлендж «100 дней кода и спорта» — скидка за активность, проходят <span class="c-green" style="font-weight:700">70%</span></li>
+        <li>«Zerocoder Move» — баллы за шаги → выходные/массаж. Болеют на <span class="c-green" style="font-weight:700">30% реже</span></li>
+        <li>KPI — индекс счастья детей и родителей</li>
+      </ul>
+    </div>
+    <div>
+      <div class="t2 c-green" style="font-size:24px;margin-bottom:10px">«Мы отменили правило "подрастёшь — тогда сможешь"»</div>
+      <div class="mr" style="margin-bottom:12px;gap:16px">
+        <div class="stat-box" style="min-width:auto;padding:12px 16px"><div class="sb-line b-green"></div><div class="sv c-green" style="font-size:28px">12</div><div class="sl" style="font-size:10px">лет — стартапы</div></div>
+        <div class="stat-box" style="min-width:auto;padding:12px 16px"><div class="sb-line b-green"></div><div class="sv c-green" style="font-size:28px">14</div><div class="sl" style="font-size:10px">лет — конференции</div></div>
+        <div class="stat-box" style="min-width:auto;padding:12px 16px"><div class="sb-line b-green"></div><div class="sv c-green" style="font-size:28px">16</div><div class="sl" style="font-size:10px">лет — продукты</div></div>
+      </div>
+      <ul class="bl bl-green" style="font-size:14px">
+        <li>Карта возможностей: AI-наставник 24/7, стартап-студия, лаборатории (AI, космос, медицина, климат)</li>
+        <li><strong>Не готовим к профессиям</strong> — учим создавать новое, видеть возможности, брать ответственность</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 35. Итог -->
+<div class="s" data-a="green" style="align-items:center">
+  <div class="sp"><div class="dot b-green"></div><span class="c-green">Дети</span><span class="nm">Медведева + Захаренко</span></div>
+  <div class="t2 c-green ctr glow-green" style="font-size:38px">Самые большие возможности мира — для детей</div>
+  <div class="sub ctr" style="margin-top:12px;font-size:18px">Каждый пятый AI-бизнес в СНГ основан выпускником Zerocoder</div>
+  <div class="str b-green"></div>
+</div>
+
+<!-- ══════════ БЛОК 10: АКАДЕМИЧЕСКИЙ ══════════ -->
+
+<!-- 36. Приветственный -->
+<div class="s splash" data-a="purple">
+  <div class="splash-dept c-purple glow-purple">Академический отдел</div>
+  <div class="splash-line b-purple"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Дарья Бобровская</div>
+  <div class="splash-vision">Министерство развития талантов, которое помогает людям создавать новую экономику</div>
+</div>
+
+<!-- 37. Что изменилось + Цифры -->
+<div class="s" data-a="purple">
+  <div class="sp"><div class="dot b-purple"></div><span class="c-purple">Академический</span><span class="nm">Бобровская</span></div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:24px;margin-bottom:16px">Что изменилось</div>
+      <ul class="bl bl-purple" style="font-size:17px">
+        <li><span style="text-decoration:line-through;color:var(--dim)">Домашки</span> → реальные проекты</li>
+        <li><span style="text-decoration:line-through;color:var(--dim)">Дипломы</span> → реальные деньги</li>
+        <li>У каждого — персональная команда AI-агентов</li>
+        <li>Метрика: <span class="c-purple">компании, рабочие места, продукты</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="t2" style="font-size:24px;margin-bottom:16px">Цифры</div>
+      <div class="mr" style="gap:20px;justify-content:flex-start;flex-direction:column">
+        <div class="m" style="text-align:left"><div class="mv c-purple" style="font-size:40px">127 000</div><div class="ml">компаний создано выпускниками</div></div>
+        <div class="m" style="text-align:left"><div class="mv c-purple" style="font-size:40px">11 млн</div><div class="ml">рабочих мест</div></div>
+        <div class="m" style="text-align:left"><div class="mv c-purple" style="font-size:40px">18</div><div class="ml">компаний-единорогов</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 38. Каждый пятый + Финал -->
+<div class="s" data-a="purple" style="align-items:center">
+  <div class="sp"><div class="dot b-purple"></div><span class="c-purple">Академический</span><span class="nm">Бобровская</span></div>
+  <div class="t2 c-purple ctr glow-purple" style="font-size:44px;margin-bottom:12px">Каждый пятый AI-бизнес в СНГ</div>
+  <div class="sub ctr" style="font-size:20px;color:var(--text)">основан выпускником Zerocoder</div>
+  <div class="str b-purple"></div>
+</div>
+
+<!-- ══════════ ФИНАЛ ══════════ -->
+
+<!-- 39. Финал -->
+<div class="s" data-a="purple-d" style="align-items:center">
+  <div class="q c-purple ctr" style="border-color:var(--purple);font-size:38px;text-align:center;border:none;padding:0;max-width:950px">
+    В 2025 мы помогали людям найти своё место в новой экономике.<br>В 2030 <strong>выпускники Zerocoder эту экономику создают.</strong>
+  </div>
+  <div style="margin-top:48px;text-align:center">
+    <div style="font-size:52px;font-weight:800;letter-spacing:-1px" class="glow-purple">ЗЕРОКОДЕР 2030</div>
+    <div style="font-size:18px;color:var(--dim);margin-top:12px">Мы строим будущее, в котором наши выпускники создают новую экономику</div>
+  </div>
+  <div class="str b-purple"></div>
+</div>
+
+<!-- ═══ JS ═══ -->
+<script>
+const S=document.querySelectorAll('.s'),P=document.getElementById('prog'),C=document.getElementById('cnt');
+let ci=0;
+function upd(){
+  const st=window.scrollY,dh=document.documentElement.scrollHeight-window.innerHeight;
+  P.style.width=(dh>0?(st/dh)*100:0)+'%';
+  const h=S[0]?S[0].offsetHeight:1;
+  ci=Math.min(Math.max(0,Math.floor((st+window.innerHeight/2)/h)),S.length-1);
+  C.textContent=(ci+1)+' / '+S.length
+}
+function go(d){const n=Math.max(0,Math.min(ci+d,S.length-1));S[n].scrollIntoView({behavior:'smooth'})}
+function fs(){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(1)}
+  else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();go(-1)}
+  else if(e.key==='F11'){e.preventDefault();fs()}
+});
+// Progressive enhancement: slides are visible by default (no black screen on mobile)
+// On browsers that support IntersectionObserver, add a fade-in animation
+if('IntersectionObserver' in window){
+  S.forEach(s=>{s.style.opacity='0';s.style.transform='translateY(20px)'});
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='none';io.unobserve(e.target)}})},{threshold:.05});
+  S.forEach(s=>io.observe(s));
+  // Fallback: if observer hasn't fired after 2s, show all slides
+  setTimeout(()=>{S.forEach(s=>{s.style.opacity='1';s.style.transform='none'})},2000);
+}
+(function(){
+  const cv=document.getElementById('coverCanvas');if(!cv)return;
+  const ctx=cv.getContext('2d');let w,h,pts=[];
+  function resize(){w=cv.width=cv.offsetWidth;h=cv.height=cv.offsetHeight;pts=[];for(let i=0;i<60;i++)pts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*2+1})}
+  function draw(){ctx.clearRect(0,0,w,h);for(let i=0;i<pts.length;i++){const p=pts[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(159,123,246,0.4)';ctx.fill();for(let j=i+1;j<pts.length;j++){const q=pts[j],dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy);if(d<150){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle='rgba(159,123,246,'+(0.12*(1-d/150))+')';ctx.lineWidth=.6;ctx.stroke()}}}requestAnimationFrame(draw)}
+  window.addEventListener('resize',resize);resize();draw();
+})();
+window.addEventListener('scroll',upd);upd();
+</script>
+</body>
+</html>
