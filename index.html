@@ -12,6 +12,7 @@
   --purple:#9f7bf6;--purple-d:#5b2dcd;--purple-g:rgba(159,123,246,.15);
   --green:#29dc6d;--green-l:#45e083;
   --yellow:#eeff00;--coral:#f4846b;--lavender:#a789ec;--cyan:#00c8ff;
+  --rose:#e84393;--rose-d:#a8306b;
   --font:'Manrope',sans-serif;
 }
 html{scroll-snap-type:y mandatory;overflow-y:scroll;scroll-behavior:smooth}
@@ -26,6 +27,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 [data-a="coral"]::before{background:var(--coral)}[data-a="coral"]::after{background:var(--yellow)}
 [data-a="lavender"]::before{background:var(--lavender)}[data-a="lavender"]::after{background:var(--purple)}[data-a="cyan"]::before{background:var(--cyan)}[data-a="cyan"]::after{background:var(--purple-d)}
 [data-a="purple-d"]::before{background:var(--purple-d)}[data-a="purple-d"]::after{background:var(--purple)}
+[data-a="rose"]::before{background:var(--rose)}[data-a="rose"]::after{background:var(--rose-d)}
 
 .sp{position:absolute;top:28px;left:36px;display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.55;z-index:2}
 .sp .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -58,7 +60,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .cd::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:.6}
 .cd-t{font-size:16px;font-weight:700;margin-bottom:8px}
 .cd-b{font-size:14px;color:var(--dim);line-height:1.5}
-.cards-purple .cd::before{background:var(--purple)}.cards-green .cd::before{background:var(--green)}
+.cards-purple .cd::before{background:var(--purple)}.cards-rose .cd::before{background:var(--rose)}.cards-green .cd::before{background:var(--green)}
 .cards-green-l .cd::before{background:var(--green-l)}.cards-yellow .cd::before{background:var(--yellow)}
 .cards-coral .cd::before{background:var(--coral)}.cards-lavender .cd::before{background:var(--lavender)}.cards-cyan .cd::before{background:var(--cyan)}
 
@@ -141,11 +143,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 @media(max-width:768px){.tl{height:32px;gap:3px}.tl-step{width:6px;height:6px}.tl-label{font-size:8px;top:8px}}
 
 
-.c-purple{color:var(--purple)}.c-green{color:var(--green)}.c-green-l{color:var(--green-l)}
+.c-purple{color:var(--purple)}.c-rose{color:var(--rose)}.c-green{color:var(--green)}.c-green-l{color:var(--green-l)}
 .c-yellow{color:var(--yellow)}.c-coral{color:var(--coral)}.c-lavender{color:var(--lavender)}.c-cyan{color:var(--cyan)}
-.b-purple{background:var(--purple)}.b-green{background:var(--green)}.b-green-l{background:var(--green-l)}
+.b-purple{background:var(--purple)}.b-rose{background:var(--rose)}.b-green{background:var(--green)}.b-green-l{background:var(--green-l)}
 .b-yellow{background:var(--yellow)}.b-coral{background:var(--coral)}.b-lavender{background:var(--lavender)}.b-cyan{background:var(--cyan)}
-.bl-purple li::before{background:var(--purple)}.bl-green li::before{background:var(--green)}
+.bl-purple li::before{background:var(--purple)}.bl-rose li::before{background:var(--rose)}.bl-green li::before{background:var(--green)}
 .bl-green-l li::before{background:var(--green-l)}.bl-yellow li::before{background:var(--yellow)}
 .bl-coral li::before{background:var(--coral)}.bl-lavender li::before{background:var(--lavender)}.bl-cyan li::before{background:var(--cyan)}
 
@@ -154,6 +156,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .glow-yellow{text-shadow:0 0 40px rgba(238,255,0,.25),0 0 80px rgba(238,255,0,.1)}
 .glow-coral{text-shadow:0 0 40px rgba(244,132,107,.3),0 0 80px rgba(244,132,107,.15)}
 .glow-lavender{text-shadow:0 0 40px rgba(167,137,236,.3),0 0 80px rgba(167,137,236,.15)}.glow-cyan{text-shadow:0 0 40px rgba(0,200,255,.3),0 0 80px rgba(0,200,255,.15)}
+.glow-rose{text-shadow:0 0 40px rgba(232,67,147,.3),0 0 80px rgba(232,67,147,.15)}
 
 /* Splash — dept name biggest */
 .splash{align-items:center;justify-content:center;text-align:center}
@@ -1132,6 +1135,157 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   <div class="str b-purple"></div>
 </div>
 
+<!-- ══════════ БЛОК 11: B2B ══════════ -->
+
+<!-- B2B-1. Splash -->
+<div class="s splash" data-a="rose">
+  <div class="splash-dept c-rose glow-rose">B2B 2030</div>
+  <div class="splash-line b-rose"></div>
+  <div class="splash-sub">Зерокодер 2030</div>
+  <div class="splash-speaker">Анастасия Плутцова</div>
+  <div class="splash-vision">Мы не обучаем сотрудников пользоваться ИИ. Мы проектируем компании, в которых человек и AI работают как единая система</div>
+</div>
+
+<!-- B2B-2. Сдвиг парадигмы -->
+<div class="s" data-a="rose">
+  <div class="sp"><div class="dot b-rose"></div><span class="c-rose">B2B</span><span class="nm">Плутцова</span></div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:24px;margin-bottom:14px">ИИ = среда работы</div>
+      <ul class="bl bl-rose" style="font-size:16px">
+        <li>У компаний больше нет вопроса «использовать ИИ или нет»</li>
+        <li>ИИ встроен в <span class="c-rose" style="font-weight:700">каждый процесс</span>: продажи, маркетинг, HR, финансы, клиентский сервис</li>
+        <li>Конкурируют не «с ИИ / без ИИ», а компании с разным уровнем <span class="c-rose" style="font-weight:700">AI-зрелости</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="t2" style="font-size:24px;margin-bottom:14px">Мы больше не продаём обучение</div>
+      <ul class="bl bl-rose" style="font-size:16px">
+        <li>Обучение — <span class="c-rose" style="font-weight:700">входная точка</span>, не продукт</li>
+        <li>Главный продукт — <span class="c-rose" style="font-weight:700">проектирование AI-native компаний</span></li>
+        <li>От диагностики до внедрения, сопровождения и измеримого эффекта</li>
+      </ul>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:20px;font-size:17px;color:var(--dim);max-width:800px;margin-left:auto;margin-right:auto">Наша роль — быть теми, кто переводит компании на новый уровень AI-зрелости</div>
+</div>
+
+<!-- B2B-3. Клиент 2030 -->
+<div class="s" data-a="rose">
+  <div class="sp"><div class="dot b-rose"></div><span class="c-rose">B2B</span><span class="nm">Плутцова</span></div>
+  <div class="t2" style="font-size:26px;margin-bottom:20px;text-align:center">Наш клиент в 2030 — компания, которая хочет стать <span class="c-rose">AI-native</span></div>
+  <div style="text-align:center;font-size:17px;color:var(--dim);margin-bottom:20px">Они приходят с вопросами:</div>
+  <div class="cards cards-rose" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+    <div class="cd" style="padding:18px"><div class="cd-b" style="color:var(--text);font-weight:500;font-size:14px">Как создать сеть AI-агентов внутри компании?</div></div>
+    <div class="cd" style="padding:18px"><div class="cd-b" style="color:var(--text);font-weight:500;font-size:14px">Как перестроить роли сотрудников?</div></div>
+    <div class="cd" style="padding:18px"><div class="cd-b" style="color:var(--text);font-weight:500;font-size:14px">Как внедрить ИИ безопасно?</div></div>
+    <div class="cd" style="padding:18px"><div class="cd-b" style="color:var(--text);font-weight:500;font-size:14px">Как измерять вклад ИИ в выручку?</div></div>
+    <div class="cd" style="padding:18px"><div class="cd-b" style="color:var(--text);font-weight:500;font-size:14px">Как превратить сотрудников в операторов AI-систем?</div></div>
+  </div>
+</div>
+
+<!-- B2B-4. Продукты 2030 -->
+<div class="s" data-a="rose">
+  <div class="sp"><div class="dot b-rose"></div><span class="c-rose">B2B</span><span class="nm">Плутцова</span></div>
+  <div class="t2" style="font-size:26px;margin-bottom:20px">Наши продукты 2030</div>
+  <div class="cards cards-rose">
+    <div class="cd"><div class="cd-t c-rose">AI Transformation Studio</div><div class="cd-b">Комплексная пересборка подразделений под ИИ</div></div>
+    <div class="cd"><div class="cd-t c-rose">AI Workforce Design</div><div class="cd-b">Проектирование новой модели работы: человек + AI-агенты</div></div>
+    <div class="cd"><div class="cd-t c-rose">Corporate AI Brain</div><div class="cd-b">Корпоративная база знаний и ассистенты поверх неё</div></div>
+    <div class="cd"><div class="cd-t c-rose">AI Agent Factory</div><div class="cd-b">Быстрое создание ассистентов и агентов под функции компании</div></div>
+    <div class="cd"><div class="cd-t c-rose">AI Learning OS</div><div class="cd-b">Платформа, где обучение встроено в ежедневную работу</div></div>
+    <div class="cd"><div class="cd-t c-rose">AI ROI Lab</div><div class="cd-b">Оценка экономического эффекта от внедрения ИИ</div></div>
+  </div>
+</div>
+
+<!-- B2B-5. До / После -->
+<div class="s" data-a="rose">
+  <div class="sp"><div class="dot b-rose"></div><span class="c-rose">B2B</span><span class="nm">Плутцова</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:16px;text-align:center">Как выглядит рабочий процесс клиента</div>
+  <div class="con">
+    <div class="con-old">
+      <h3>До нас</h3>
+      <ul>
+        <li>Сотрудники вручную пишут документы</li>
+        <li>Ищут информацию</li>
+        <li>Собирают отчёты</li>
+        <li>Делают презентации</li>
+        <li>Согласовывают задачи</li>
+        <li>Теряют время на рутину</li>
+      </ul>
+    </div>
+    <div class="con-vs">→</div>
+    <div class="con-new">
+      <h3>После нас</h3>
+      <ul>
+        <li>AI сам готовит первый драфт</li>
+        <li>AI предлагает решения</li>
+        <li>AI предупреждает о рисках</li>
+        <li>AI собирает аналитику</li>
+        <li>AI ведёт базу знаний</li>
+        <li>AI сопровождает сотрудников</li>
+        <li><span style="color:var(--green);font-weight:700">Человек — решения, смысл, качество</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- B2B-6. Отдел 2030 -->
+<div class="s" data-a="rose">
+  <div class="sp"><div class="dot b-rose"></div><span class="c-rose">B2B</span><span class="nm">Плутцова</span></div>
+  <div class="t2" style="font-size:24px;margin-bottom:16px">Наш отдел в 2030 — не команда обучения, а <span class="c-rose">экосистема</span></div>
+  <div class="cards cards-rose" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+    <div class="cd"><div class="cd-t c-rose">AI Strategy Office</div><div class="cd-b">Определяет, куда компании двигаться в мире ИИ</div></div>
+    <div class="cd"><div class="cd-t c-rose">AI Product Lab</div><div class="cd-b">Создаёт AI-продукты и решения для бизнеса</div></div>
+    <div class="cd"><div class="cd-t c-rose">AI Agent Factory</div><div class="cd-b">Разрабатывает и внедряет AI-ассистентов и агентов</div></div>
+    <div class="cd"><div class="cd-t c-rose">Learning Experience Studio</div><div class="cd-b">Проектирует обучение нового поколения, встроенное в работу</div></div>
+    <div class="cd"><div class="cd-t c-rose">Implementation Team</div><div class="cd-b">Внедряет AI-решения и сопровождает изменения</div></div>
+    <div class="cd"><div class="cd-t c-rose">Client Success & ROI</div><div class="cd-b">Обеспечивает бизнес-результаты и измеряет эффект от ИИ</div></div>
+    <div class="cd"><div class="cd-t c-rose">Research & Future Trends</div><div class="cd-b">Исследует технологии будущего и прогнозирует рынок</div></div>
+  </div>
+  <div style="text-align:center;margin-top:16px;font-size:14px;color:var(--dim)">Не «продали → провели → закрыли проект», а полноценный центр создания AI-решений для бизнеса</div>
+</div>
+
+<!-- B2B-7. AI-native внутри + Масштаб -->
+<div class="s" data-a="rose">
+  <div class="sp"><div class="dot b-rose"></div><span class="c-rose">B2B</span><span class="nm">Плутцова</span></div>
+  <div class="c2">
+    <div>
+      <div class="t2" style="font-size:22px;margin-bottom:14px">Наша внутренняя работа — тоже AI-native</div>
+      <ul class="bl bl-rose" style="font-size:14px">
+        <li>AI собирает бриф клиента</li>
+        <li>AI анализирует отрасль</li>
+        <li>AI предлагает программу</li>
+        <li>AI готовит КП</li>
+        <li>AI прогнозирует вероятность сделки</li>
+        <li>AI ведёт проект и собирает обратную связь</li>
+        <li>AI считает эффект для клиента</li>
+      </ul>
+      <div style="margin-top:10px;font-size:14px;color:var(--dim)">А люди — <span class="c-rose" style="font-weight:700">стратегия, партнёрства, новые продукты</span></div>
+    </div>
+    <div>
+      <div class="t2" style="font-size:22px;margin-bottom:14px">Масштаб мечты</div>
+      <ul class="bl bl-rose" style="font-size:14px">
+        <li>Работаем с <span class="c-rose" style="font-weight:700">крупнейшими компаниями</span> страны</li>
+        <li>Международные клиенты</li>
+        <li>Наши AI-агенты — внутри <span class="c-rose" style="font-weight:700">сотен компаний</span></li>
+        <li>Собственная AI-платформа</li>
+        <li>Большая часть выручки — <span class="c-rose" style="font-weight:700">подписка и сопровождение</span></li>
+        <li>Мы — не подрядчик, а <span class="c-rose" style="font-weight:700">инфраструктурный партнёр</span> бизнеса</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- B2B-8. Итог -->
+<div class="s" data-a="rose" style="align-items:center">
+  <div class="sp"><div class="dot b-rose"></div><span class="c-rose">B2B</span><span class="nm">Плутцова</span></div>
+  <div class="q c-rose ctr" style="border-color:var(--rose);font-size:30px;text-align:center;border:none;padding:0;color:var(--rose)">
+    В 2030 наш отдел — не команда, которая обучает людей нейросетям.<br>Это студия, которая <strong>проектирует компании будущего</strong>:<br>с AI-агентами, новой культурой работы,<br>измеримым ростом эффективности<br>и сотрудниками, которые умеют управлять ИИ.
+  </div>
+  <div class="str b-rose"></div>
+</div>
+
 <!-- ══════════ ФИНАЛ ══════════ -->
 
 <!-- 39. Финал -->
@@ -1175,8 +1329,8 @@ if('IntersectionObserver' in window){
 }
 
 // Timeline bar
-const TL_BLOCKS=['Cover','Manifest','Technical','Marketing','Sales','Producer','CPO','Client','Career','Finance','Kids','Academic','Finale'];
-const TL_COLORS=['#9f7bf6','#5b2dcd','#a789ec','#00c8ff','#45e083','#eeff00','#f4846b','#eeff00','#29dc6d','#f4846b','#29dc6d','#9f7bf6','#5b2dcd'];
+const TL_BLOCKS=['Cover','Manifest','Technical','Marketing','Sales','Producer','CPO','Client','Career','Finance','Kids','Academic','B2B','Finale'];
+const TL_COLORS=['#9f7bf6','#5b2dcd','#a789ec','#00c8ff','#45e083','#eeff00','#f4846b','#eeff00','#29dc6d','#f4846b','#29dc6d','#9f7bf6','#e84393','#5b2dcd'];
 const tlEl=document.getElementById('tl'),tlLabel=document.getElementById('tlLabel');
 if(tlEl){TL_BLOCKS.forEach(function(_,i){var d=document.createElement('div');d.className='tl-step';d.dataset.i=i;tlEl.appendChild(d)})}
 function updTl(idx){
@@ -1194,7 +1348,8 @@ function updTl(idx){
   else if(idx<35)bi=9;
   else if(idx<52)bi=10;
   else if(idx<55)bi=11;
-  else bi=12;
+  else if(idx<63)bi=12;
+  else bi=13;
   for(var i=0;i<steps.length;i++){
     steps[i].className='tl-step';
     if(i<bi)steps[i].classList.add('done');
