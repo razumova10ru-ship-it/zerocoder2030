@@ -591,11 +591,17 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Клиентский</span><span class="nm">Богачёва</span></div>
   <div class="t3" style="font-size:19px;color:var(--dim);margin-bottom:20px;max-width:900px">К 2030 студент приходит в Zerocoder не за курсом — за проектом, ИИ-инструментом и нетворкингом. Курс — начало отношений, не конец. Вопрос только в том, <span class="c-yellow" style="font-weight:700">один ли ты в важной точке — или рядом человек?</span></div>
   <div class="steps">
-    <div class="step s5"><div class="sn">Luxury</div><div class="sd">+ Команда 3–5 чел + топ-менеджмент · Корпоративная ИИ-система</div></div>
-    <div class="step s4"><div class="sn">VIP+</div><div class="sd">+ Команда: ИИ-инженер, карьерный консультант · Многоагентная инфраструктура</div></div>
-    <div class="step s3"><div class="sn">VIP</div><div class="sd">ИИ-наставник + ИИ-агент + Архитектор траектории (человек) · Гарантия результата</div></div>
+    <div class="step s5"><div class="sn">Premium</div><div class="sd">ИИ-наставник + Архитектор траектории + ИИ-инжинер + Личная многоагентная инфраструктура</div></div>
+    <div class="step s4"><div class="sn">VIP+</div><div class="sd">ИИ-наставник + ИИ-агент + Архитектор траектории + ИИ-инжинер</div></div>
+    <div class="step s3"><div class="sn">VIP</div><div class="sd">ИИ-наставник + ИИ-агент + Архитектор траектории (человек)</div></div>
     <div class="step s2"><div class="sn">Бизнес</div><div class="sd">ИИ-наставник + ИИ-агент, который растёт вместе с учебой</div></div>
     <div class="step s1"><div class="sn">Базовый</div><div class="sd">ИИ-агент</div></div>
+  </div>
+  <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+    <div class="stat-box"><div class="sb-line b-yellow"></div><div class="sv c-yellow">~10 000 → 100 000</div><div class="sl">студентов 2026 → 2030</div></div>
+    <div class="stat-box"><div class="sb-line b-yellow"></div><div class="sv c-yellow">ФОТ ∞</div><div class="sl">пропорционален росту VIP+</div></div>
+    <div class="stat-box"><div class="sb-line b-yellow"></div><div class="sv c-yellow">×2</div><div class="sl">доходимость за счёт ИИ</div></div>
+    <div class="stat-box"><div class="sb-line b-yellow"></div><div class="sv c-yellow">LTV ×</div><div class="sl">подписка на ИИ-агента</div></div>
   </div>
 </div>
 
@@ -603,32 +609,28 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <div class="s" data-a="yellow">
   <div class="sp"><div class="dot b-yellow"></div><span class="c-yellow">Клиентский</span><span class="nm">Богачёва</span></div>
   <div style="display:flex;flex-direction:column;align-items:center;width:100%">
-    <svg viewBox="0 0 420 420" width="340" height="340" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 16px">
-      <!-- 1. ИИ-фасилитатор (outermost) -->
-      <circle cx="210" cy="210" r="190" fill="none" stroke="rgba(238,255,0,0.15)" stroke-width="2"/>
-      <!-- 2. Канал -->
-      <circle cx="210" cy="210" r="140" fill="none" stroke="rgba(238,255,0,0.25)" stroke-width="2"/>
-      <!-- 3. Ниша -->
-      <circle cx="210" cy="210" r="100" fill="none" stroke="rgba(238,255,0,0.40)" stroke-width="2"/>
-      <!-- 4. Поток -->
-      <circle cx="210" cy="210" r="60" fill="none" stroke="rgba(238,255,0,0.58)" stroke-width="2"/>
-      <!-- 5. Свои (innermost) -->
-      <circle cx="210" cy="210" r="28" fill="rgba(238,255,0,0.12)" stroke="rgba(238,255,0,0.7)" stroke-width="2"/>
+    <svg viewBox="0 0 500 420" width="420" height="360" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 16px">
+      <!-- Канал — самый большой, охватывает всё -->
+      <circle cx="250" cy="210" r="195" fill="none" stroke="#CCFF00" stroke-width="1.5" opacity="0.2"/>
+      <!-- Ниша — большой круг, смещён влево-вниз -->
+      <circle cx="210" cy="240" r="120" fill="none" stroke="#CCFF00" stroke-width="2" opacity="0.35"/>
+      <!-- Нейроклуб — справа внутри Канала, пересекается с Нишей -->
+      <circle cx="330" cy="190" r="65" fill="none" stroke="#CCFF00" stroke-width="2" opacity="0.45"/>
+      <!-- Клуб выпускников — слева, пересекается с Потоком и Своими -->
+      <circle cx="175" cy="175" r="75" fill="none" stroke="#CCFF00" stroke-width="2" opacity="0.45"/>
+      <!-- Поток — средний круг, пересекается с Нишей и Клубом выпускников -->
+      <circle cx="220" cy="200" r="70" fill="none" stroke="#CCFF00" stroke-width="2.5" opacity="0.6"/>
+      <!-- Свои — маленький круг в центре пересечения -->
+      <circle cx="210" cy="210" r="28" fill="rgba(204,255,0,0.12)" stroke="#CCFF00" stroke-width="2.5" opacity="0.8"/>
 
       <!-- Labels -->
-      <text x="210" y="16" text-anchor="middle" fill="rgba(238,255,0,0.85)" font-size="12" font-weight="700" font-family="Manrope,sans-serif">ИИ-фасилитатор</text>
-      <!-- Клуб выпускников и Нейроклуб — between circle 1 and 2 -->
-      <text x="380" y="195" text-anchor="middle" fill="rgba(238,255,0,0.65)" font-size="10" font-weight="600" font-family="Manrope,sans-serif">Клуб</text>
-      <text x="380" y="210" text-anchor="middle" fill="rgba(238,255,0,0.65)" font-size="10" font-weight="600" font-family="Manrope,sans-serif">выпускников</text>
-      <text x="380" y="232" text-anchor="middle" fill="rgba(238,255,0,0.65)" font-size="10" font-weight="600" font-family="Manrope,sans-serif">Нейроклуб</text>
-      <!-- Канал label -->
-      <text x="210" y="66" text-anchor="middle" fill="rgba(238,255,0,0.75)" font-size="11" font-weight="600" font-family="Manrope,sans-serif">Канал</text>
-      <!-- Ниша label -->
-      <text x="210" y="106" text-anchor="middle" fill="rgba(238,255,0,0.75)" font-size="11" font-weight="600" font-family="Manrope,sans-serif">Ниша</text>
-      <!-- Поток label -->
-      <text x="210" y="146" text-anchor="middle" fill="rgba(238,255,0,0.75)" font-size="11" font-weight="600" font-family="Manrope,sans-serif">Поток</text>
-      <!-- Свои label -->
-      <text x="210" y="215" text-anchor="middle" fill="rgba(238,255,0,0.9)" font-size="13" font-weight="800" font-family="Manrope,sans-serif">Свои</text>
+      <text x="250" y="24" text-anchor="middle" fill="#CCFF00" opacity="0.85" font-size="13" font-weight="700" font-family="Manrope,sans-serif">Канал</text>
+      <text x="115" y="260" text-anchor="middle" fill="#CCFF00" opacity="0.55" font-size="12" font-weight="600" font-family="Manrope,sans-serif">Ниша</text>
+      <text x="390" y="195" text-anchor="middle" fill="#CCFF00" opacity="0.65" font-size="11" font-weight="600" font-family="Manrope,sans-serif">Нейроклуб</text>
+      <text x="100" y="145" text-anchor="middle" fill="#CCFF00" opacity="0.65" font-size="11" font-weight="600" font-family="Manrope,sans-serif">Клуб</text>
+      <text x="100" y="160" text-anchor="middle" fill="#CCFF00" opacity="0.65" font-size="11" font-weight="600" font-family="Manrope,sans-serif">выпускников</text>
+      <text x="260" y="290" text-anchor="middle" fill="#CCFF00" opacity="0.7" font-size="12" font-weight="600" font-family="Manrope,sans-serif">Поток</text>
+      <text x="210" y="215" text-anchor="middle" fill="#CCFF00" opacity="0.95" font-size="14" font-weight="800" font-family="Manrope,sans-serif">Свои</text>
     </svg>
     <div style="text-align:center;max-width:700px">
       <div style="font-size:17px;line-height:1.5;color:var(--text);margin-bottom:12px">Единая платформа с ИИ-фасилитатором вместо 10+ разрозненных чатов</div>
@@ -1139,7 +1141,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
 <!-- B2B-1. Splash -->
 <div class="s splash" data-a="rose">
-  <div class="splash-dept c-rose glow-rose">B2B 2030</div>
+  <div class="splash-dept c-rose glow-rose">B2B</div>
   <div class="splash-line b-rose"></div>
   <div class="splash-sub">Зерокодер 2030</div>
   <div class="splash-speaker">Анастасия Плутцова</div>
